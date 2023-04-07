@@ -17,7 +17,7 @@ export const Menus = () => {
     const menus = useSelector(selectMenus);
 
     return (
-        <section>
+        <section id="menus">
             <div id="menusGallery">
                 {menus.map(renderMenus)}
             </div>

@@ -2,6 +2,7 @@ import {useParams} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {addPositionToMenu, selectMenus} from "../Menus/menusSlice";
 import {useEffect, useState} from "react";
+import './menuScreen.css'
 
 export const MenuScreen = () => {
     const dispatch = useDispatch();
@@ -10,6 +11,7 @@ export const MenuScreen = () => {
     let menus = useSelector(selectMenus);
 
     const [menuItems, setMenuItems] = useState([]);
+    const [menuName, setMenuName] = useState('');
     const [newName, setNewName] = useState('');
     const [newDesc, setNewDesc] = useState('');
     const [newPrice, setNewPrice] = useState(0);
@@ -18,6 +20,7 @@ export const MenuScreen = () => {
             for (let i=0;i<menus.length;i++) {
                 if (
                     menus[i].id === Number(id)) {
+                    setMenuName(menus[i].name);
                     setMenuItems(menus[i].positions);
                 }
             }
@@ -25,9 +28,11 @@ export const MenuScreen = () => {
 
     const renderMenuItems = (item) => {
         return (
-            <div>
-                <h3>{item.name}</h3>
-                <p>{item.desc}</p>
+            <div className = "menuPosition">
+                <div>
+                    <h3>{item.name}</h3>
+                    <p>{item.desc}</p>
+                </div>
                 <h4>{item.price}</h4>
             </div>
         )
@@ -53,20 +58,18 @@ export const MenuScreen = () => {
             price: newPrice
         }
         dispatch(addPositionToMenu(newPosition));
-        console.log('Dispatched!');
-        console.log(menus);
     }
 
     return (
         <div>
-            I am a menu {id}!
-            <div id="menuPosCreator">
-                <input defaultValue="Nazwa" onChange={handleNameChange}/>
-                <input defaultValue="Opis" onChange={handleDescChange}/>
-                <input defaultValue="Cena" onChange={handlePriceChange}/>
-                <button onClick={handleSubmit}>GO!</button>
-            </div>
+            <h3>I am a menu ID:{id} named {menuName}!</h3>
             <div id="menuList">
+                <div id="menuPosCreator">
+                    <input defaultValue="Nazwa" onChange={handleNameChange}/>
+                    <input defaultValue="Opis" onChange={handleDescChange}/>
+                    <input defaultValue="Cena" onChange={handlePriceChange}/>
+                    <button onClick={handleSubmit}>Dodaj!</button>
+                </div>
                 {menuItems.map(renderMenuItems)}
             </div>
         </div>
