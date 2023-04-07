@@ -1,8 +1,9 @@
-body, html, #root {
+body, html, #root, .App {
   height: 100%;
   width: 100%;
 }
 
 .App {
   text-align: center;
+  overflow: hidden;
 }

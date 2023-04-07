@@ -1,0 +1,64 @@
+#tableScreen {
+    width: 90%;
+    height: 80%;
+    background-color: lightcoral;
+    margin: 20px auto;
+    border-radius: 10px;
+    display: grid;
+    grid-template: 10% 80% 10% / 1fr 1fr;
+    grid-template-areas: 'menuSelector tableName' 'menu order' 'menu total' ;
+}
+
+#tableName {
+    grid-area: tableName;
+}
+
+#menuButtons {
+    grid-area: menuSelector;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#menuButtons button {
+    height: 70%;
+    width: 30%;
+    border-radius: 10px;
+}
+
+#menuListing {
+    grid-area: menu;
+    background-color: #f0c0c0;
+    border-radius: 10px;
+    margin: 2px;
+
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+}
+
+#order {
+    grid-area: order;
+    background-color: #f0c0c0;
+    border-radius: 10px;
+    margin: 2px;
+
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+}
+
+.menuPosition {
+    box-sizing: border-box;
+    width: 100%;
+    border-bottom: 1px solid black;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+
+.positionDescription {
+    text-align: left;
+}
+

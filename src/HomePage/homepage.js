@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 export const Homepage = () => {
     return (
         <div id="homepage">
-            <NavLink to={'waiter'} className="menuContainer">
+            <NavLink to={'tables'} className="menuContainer">
                     <img src={require('./menuImg.png')} alt="menu icon"/>
                     <p>Obsługa kelnerska</p>
             </NavLink>
