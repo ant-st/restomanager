@@ -4,6 +4,8 @@ import {RouterProvider, createRoutesFromElements, Route, createBrowserRouter} fr
 import {Homepage} from "../HomePage/homepage";
 import {Tables} from "../Tables/tables";
 import {TableScreen} from "../TableScreen/tablescreen";
+import {Menus} from "../Menus/Menus";
+import {MenuScreen} from "../MenuScreen/menuScreen";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -13,13 +15,15 @@ const router = createBrowserRouter(
                 <Route path='' element={<Tables/>}/>
                 <Route path=":id" element={<TableScreen/>}/>
             </Route>
+            <Route path="menus" element={<Menus/>}>
+                <Route path=":id" element={<MenuScreen/>}/>
+            </Route>
         </Route>
     ));
 
 
 
 function App() {
-
   return (
       <RouterProvider router={router}/>
   );
