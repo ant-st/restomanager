@@ -1,0 +1,25 @@
+#homepage {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+#homepage a {
+    text-decoration: none;
+    color: black;
+}
+
+.menuContainer {
+    width: 25%;
+    height: 300px;
+    margin: 20px;
+    background-color: lightcoral;
+
+    border-radius: 10%;
+}
+
+.menuContainer img {
+    height: 60%;
+    margin: 20px;
+}
