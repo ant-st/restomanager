@@ -1,7 +1,9 @@
 import './tables.css'
 import {NavLink} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {selectTables} from "./tablesSlice";
 
-const tablesArray = [{id: 1, name: 'Stol 1'}, {id: 2, name: 'Stolik 2'}, {id: 3, name: 'Kominek'}]
+// const tablesArray = [{id: 1, name: 'Stol 1'}, {id: 2, name: 'Stolik 2'}, {id: 3, name: 'Kominek'}]
 
 const renderTable = (table) => {
     return (
@@ -12,9 +14,11 @@ const renderTable = (table) => {
 }
 
 export const Tables = () => {
+    const tables = useSelector(selectTables);
+
     return (
         <div id="tablesGallery">
-            {tablesArray.map(renderTable)}
+            {tables.map(renderTable)}
         </div>
     )
 }
