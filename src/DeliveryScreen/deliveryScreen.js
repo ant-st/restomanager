@@ -1,31 +1,36 @@
-import {useNavigate, useParams} from "react-router";
-import './tablescreen.css'
+import {useNavigate} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {selectMenus} from "../Menus/menusSlice";
 import {useEffect, useState} from "react";
-import {finalizeOrder, selectTables, submitOrder} from "../Tables/tablesSlice";
 import {Link} from "react-router-dom";
+import {addOrder} from "../Delivery/deliSlice";
 
-export const TableScreen = () => {
+import './deliveryScreen.css'
+
+export const DeliveryScreen = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    let { id } = useParams();
+   // let { id } = useParams();
 
     let menus = useSelector(selectMenus);
-    const tables = useSelector(selectTables);
 
     const [currentMenu, setCurrentMenu] = useState(0);
     const [currentOrder, setCurrentOrder] = useState([]);
     const [currentSum, setCurrentSum] = useState(0);
 
-
+    const [currentAdd, setCurrentAdd] = useState('');
+    const [currentCity, setCurrentCity] = useState('Wroclaw');
+    const [currentPhone, setCurrentPhone] = useState('');
+    const [currentNote, setCurrentNote] = useState('');
+    const [currentMethod, setCurrentMethod] = useState('cash');
 
     // Calculating total sum:
     useEffect( () => {
         if (currentOrder) setCurrentSum(currentOrder.reduce((sum, current) => sum + Number(current.price),0));
     },[currentOrder]);
 
+    /*
     const fetchTable = () => {
         console.log('fetching table');
         for (let i=0; i<tables.length; i++)
@@ -35,6 +40,8 @@ export const TableScreen = () => {
     }
 
     useEffect(fetchTable, [tables, id])
+
+    */
 
     const handleMenuChange = (id) => {
         setCurrentMenu(id);
@@ -53,12 +60,22 @@ export const TableScreen = () => {
     }
 
     const handleSubmitOrder = () => {
-        dispatch(submitOrder({id: id, order: currentOrder}));
-        navigate('/tables');
+        dispatch(addOrder({
+            street: currentAdd,
+            city: currentCity,
+            phone: currentPhone,
+            deliNote: currentNote,
+            order: currentOrder,
+            total: currentSum,
+            isSent: false,
+            isReady: false,
+            paymentMet: currentMethod
+        }));
+        navigate('/delivery');
     }
 
-    const handleFinalizeOrder = () => {
-        dispatch(finalizeOrder(id));
+    const handleMethodChange = ({target}) => {
+        setCurrentMethod(target.value);
     }
 
     const renderMenuButtons = (menu) => {
@@ -99,10 +116,9 @@ export const TableScreen = () => {
     }
 
     return (
-        <div id="tableScreen">
-            <section id="tableName">
-                <p>Stół - ID: {id}</p>
-                <Link to={'/tables'}>Go back</Link>
+        <div id="deliScreen">
+            <section id="deliName">
+                <p>Nowa dostawa</p>
             </section>
             <section id="menuButtons">
                 {menus.map(renderMenuButtons)}
@@ -115,8 +131,21 @@ export const TableScreen = () => {
             </section>
             <section id="total">
                 <h4>Total: {currentSum}$</h4>
-                <button onClick={handleSubmitOrder}>Submit order</button>
-                <button onClick={handleFinalizeOrder}>Finalize order</button>
+            </section>
+            <section id="buttons">
+                <button onClick={handleSubmitOrder} >Save order</button>
+                <Link to={'/delivery'}>Go back</Link>
+            </section>
+            <section id="address">
+                <textarea defaultValue="Street" onChange={({target}) => setCurrentAdd(target.value)}></textarea>
+                <textarea defaultValue="Wrocław" onChange={({target}) => setCurrentCity(target.value)}></textarea>
+                <textarea defaultValue="Phone" onChange={({target}) => setCurrentPhone(target.value)}></textarea>
+                <textarea defaultValue="deliNote" onChange={({target}) => setCurrentNote(target.value)}></textarea>
+                <select onChange={handleMethodChange}>
+                    <option selected={true} value="cash">Gotówka</option>
+                    <option value="card">Karta</option>
+                    <option value="online">Zapłacono on-line</option>
+                </select>
             </section>
         </div>
     )

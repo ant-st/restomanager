@@ -7,6 +7,8 @@ import {TableScreen} from "../TableScreen/tablescreen";
 import {Menus} from "../Menus/Menus";
 import {MenuScreen} from "../MenuScreen/menuScreen";
 import {Kitchen} from "../Kitchen/kitchen";
+import {Delivery} from "../Delivery/delivery";
+import {DeliveryScreen} from "../DeliveryScreen/deliveryScreen";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -20,6 +22,8 @@ const router = createBrowserRouter(
                 <Route path=":id" element={<MenuScreen/>}/>
             </Route>
             <Route path="kitchen" element={<Kitchen/>}/>
+            <Route path="delivery" element={<Delivery/>}/>
+            <Route path="delivery/new" element={<DeliveryScreen/>}/>
         </Route>
     ));
 
