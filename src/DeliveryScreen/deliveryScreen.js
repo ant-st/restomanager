@@ -11,8 +11,6 @@ export const DeliveryScreen = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-   // let { id } = useParams();
-
     let menus = useSelector(selectMenus);
 
     const [currentMenu, setCurrentMenu] = useState(0);
@@ -29,19 +27,6 @@ export const DeliveryScreen = () => {
     useEffect( () => {
         if (currentOrder) setCurrentSum(currentOrder.reduce((sum, current) => sum + Number(current.price),0));
     },[currentOrder]);
-
-    /*
-    const fetchTable = () => {
-        console.log('fetching table');
-        for (let i=0; i<tables.length; i++)
-            if (tables[i].id === Number(id)) {
-                setCurrentOrder(tables[i].order);
-            }
-    }
-
-    useEffect(fetchTable, [tables, id])
-
-    */
 
     const handleMenuChange = (id) => {
         setCurrentMenu(id);
@@ -69,6 +54,7 @@ export const DeliveryScreen = () => {
             total: currentSum,
             isSent: false,
             isReady: false,
+            isChecked: false,
             paymentMet: currentMethod
         }));
         navigate('/delivery');
