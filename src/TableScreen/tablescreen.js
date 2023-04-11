@@ -1,16 +1,57 @@
 import {useParams} from "react-router";
 import './tablescreen.css'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectMenus} from "../Menus/menusSlice";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {selectTables, submitOrder} from "../Tables/tablesSlice";
 
 export const TableScreen = () => {
+    const dispatch = useDispatch();
+
     let { id } = useParams();
+
     let menus = useSelector(selectMenus);
+    const tables = useSelector(selectTables);
+
     const [currentMenu, setCurrentMenu] = useState(0);
+    const [currentOrder, setCurrentOrder] = useState([]);
+    const [currentSum, setCurrentSum] = useState(0);
+
+
+
+    // Calculating total sum:
+    useEffect( () => {
+        if (currentOrder) setCurrentSum(currentOrder.reduce((sum, current) => sum + Number(current.price),0));
+    },[currentOrder]);
+
+    const fetchTable = () => {
+        console.log('fetching table');
+        for (let i=0; i<tables.length; i++)
+            if (tables[i].id === Number(id)) {
+                setCurrentOrder(tables[i].order);
+            }
+    }
+
+    useEffect(fetchTable, [tables, id])
 
     const handleMenuChange = (id) => {
         setCurrentMenu(id);
+    }
+
+    const handleAddingToOrder = (object) => {
+        if (currentOrder) setCurrentOrder(prev => {
+            return [...prev, {name: object.name, price: object.price, note: ''}]
+        });
+        else setCurrentOrder([{name: object.name, price: object.price, note: ''}])
+    }
+
+    const handleRemoveFromOrder = (object) => {
+        let newOrder = currentOrder.filter((element) => element !== object.menu);
+        setCurrentOrder(newOrder);
+    }
+
+    const handleSubmitOrder = () => {
+        dispatch(submitOrder({id: id, order: currentOrder}));
     }
 
     const renderMenuButtons = (menu) => {
@@ -28,7 +69,23 @@ export const TableScreen = () => {
                 </div>
                 <div className="priceAndButton">
                     <h3>{menu.price}$</h3>
-                    <button>+</button>
+                    <button onClick={() => handleAddingToOrder({name: menu.name, price: menu.price})}>+</button>
+                </div>
+            </div>
+        )
+    }
+
+    const renderOrder = (menu) => {
+        return (
+            <div className="menuPosition">
+                <div className="positionDescription">
+                    <h3>{menu.name}</h3>
+                    <h4>{menu.note}</h4>
+                </div>
+                <div className="priceAndButton">
+                    <h3>{menu.price}$</h3>
+                    <button>note</button>
+                    <button onClick={() => handleRemoveFromOrder({menu})}>-</button>
                 </div>
             </div>
         )
@@ -46,29 +103,11 @@ export const TableScreen = () => {
                 {menus[currentMenu].positions.map(renderMenuPositions)}
             </section>
             <section id="order">
-                <div className="menuPosition">
-                    <div className="positionDescription">
-                        <h3>Ziemniaki</h3>
-                    </div>
-                    <div className="priceAndButton">
-                        <h3>15.00$</h3>
-                        <button>note</button>
-                        <button>-</button>
-                    </div>
-                </div>
-                <div className="menuPosition">
-                    <div className="positionDescription">
-                        <h3>Ziemniaki</h3>
-                    </div>
-                    <div className="priceAndButton">
-                        <h3>15.00$</h3>
-                        <button>note</button>
-                        <button>-</button>
-                    </div>
-                </div>
+                {currentOrder && currentOrder.map(renderOrder)}
             </section>
             <section id="total">
-                <h4>Total: 15.00$</h4>
+                <h4>Total: {currentSum}$</h4>
+                <button onClick={handleSubmitOrder}>Submit order</button>
             </section>
         </div>
     )

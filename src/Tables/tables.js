@@ -9,6 +9,7 @@ const renderTable = (table) => {
     return (
         <NavLink to={String(table.id)} className="table">
             <p>{table.name}</p>
+            <p>{table.isServed ? 'Served' : 'Empty'}</p>
         </NavLink>
     )
 }
