@@ -59,6 +59,8 @@ export const TableScreen = () => {
         dispatch(finalizeOrder(id));
     }
 
+
+
     const renderMenuButtons = (menu) => {
         return (
             <button onClick={() => handleMenuChange(menu.id)}>{menu.name}</button>
@@ -85,11 +87,12 @@ export const TableScreen = () => {
             <div className="menuPosition">
                 <div className="positionDescription">
                     <h3>{menu.name}</h3>
-                    <h4>{menu.note}</h4>
+                    <textarea onChange={({target}) => {menu.note = target.value}}>
+                        {menu.note ? menu.note : 'Add note'}
+                    </textarea>
                 </div>
                 <div className="priceAndButton">
                     <h3>{menu.price}$</h3>
-                    <button>note</button>
                     <button onClick={() => handleRemoveFromOrder({menu})}>-</button>
                 </div>
             </div>

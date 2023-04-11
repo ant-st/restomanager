@@ -34,6 +34,9 @@ export const selectTables = (state) => {
     return state.tables;
 };
 
+export const selectOrders = (state) => {
+    return state.tables.map(element => element.order);
+}
 
 
 export const {
