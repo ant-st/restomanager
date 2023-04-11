@@ -17,6 +17,14 @@ const tablesSlice = createSlice({
                     state[i].isServed = true;
                 }
             }
+        },
+        finalizeOrder: (state, action) => {
+            for (let i=0;i<state.length;i++) {
+                if (state[i].id === Number(action.payload)) {
+                    state[i].order = [];
+                    state[i].isServed = false;
+                }
+            }
         }
 
     }
@@ -30,7 +38,8 @@ export const selectTables = (state) => {
 
 export const {
     addTable,
-    submitOrder
+    submitOrder,
+    finalizeOrder
 } = tablesSlice.actions;
 
 export default tablesSlice.reducer;

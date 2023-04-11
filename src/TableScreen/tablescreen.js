@@ -3,7 +3,8 @@ import './tablescreen.css'
 import {useDispatch, useSelector} from "react-redux";
 import {selectMenus} from "../Menus/menusSlice";
 import {useEffect, useState} from "react";
-import {selectTables, submitOrder} from "../Tables/tablesSlice";
+import {finalizeOrder, selectTables, submitOrder} from "../Tables/tablesSlice";
+import {Link} from "react-router-dom";
 
 export const TableScreen = () => {
     const dispatch = useDispatch();
@@ -54,6 +55,10 @@ export const TableScreen = () => {
         dispatch(submitOrder({id: id, order: currentOrder}));
     }
 
+    const handleFinalizeOrder = () => {
+        dispatch(finalizeOrder(id));
+    }
+
     const renderMenuButtons = (menu) => {
         return (
             <button onClick={() => handleMenuChange(menu.id)}>{menu.name}</button>
@@ -95,6 +100,7 @@ export const TableScreen = () => {
         <div id="tableScreen">
             <section id="tableName">
                 <p>TABLE {id} !</p>
+                <Link to={'/tables'}>Go back</Link>
             </section>
             <section id="menuButtons">
                 {menus.map(renderMenuButtons)}
@@ -108,6 +114,7 @@ export const TableScreen = () => {
             <section id="total">
                 <h4>Total: {currentSum}$</h4>
                 <button onClick={handleSubmitOrder}>Submit order</button>
+                <button onClick={handleFinalizeOrder}>Finalize order</button>
             </section>
         </div>
     )
