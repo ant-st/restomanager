@@ -21,3 +21,15 @@
 .table p {
    margin: auto;
 }
+
+.Empty {
+    border: 5px solid grey;
+}
+
+.Preparing {
+    border: 5px solid blue;
+}
+
+.Ready {
+    border: 5px solid green;
+}

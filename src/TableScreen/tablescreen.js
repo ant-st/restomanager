@@ -90,7 +90,6 @@ export const TableScreen = () => {
                 <div className="positionDescription">
                     <h3>{menu.name}</h3>
                     <textarea onChange={({target}) => {menu.note = target.value}} defaultValue={menu.note ? menu.note : 'Add note'}>
-
                     </textarea>
                 </div>
                 <div className="priceAndButton">
@@ -104,7 +103,7 @@ export const TableScreen = () => {
     return (
         <div id="tableScreen">
             <section id="tableName">
-                <p>TABLE {id} !</p>
+                <p>Stół - ID: {id}</p>
                 <Link to={'/tables'}>Go back</Link>
             </section>
             <section id="menuButtons">
