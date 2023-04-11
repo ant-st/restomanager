@@ -6,6 +6,7 @@ import {Tables} from "../Tables/tables";
 import {TableScreen} from "../TableScreen/tablescreen";
 import {Menus} from "../Menus/Menus";
 import {MenuScreen} from "../MenuScreen/menuScreen";
+import {Kitchen} from "../Kitchen/kitchen";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
             <Route path="menus" element={<Menus/>}>
                 <Route path=":id" element={<MenuScreen/>}/>
             </Route>
+            <Route path="kitchen" element={<Kitchen/>}/>
         </Route>
     ));
 

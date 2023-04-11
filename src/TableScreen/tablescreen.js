@@ -1,4 +1,4 @@
-import {useParams} from "react-router";
+import {useNavigate, useParams} from "react-router";
 import './tablescreen.css'
 import {useDispatch, useSelector} from "react-redux";
 import {selectMenus} from "../Menus/menusSlice";
@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 
 export const TableScreen = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     let { id } = useParams();
 
@@ -41,9 +42,9 @@ export const TableScreen = () => {
 
     const handleAddingToOrder = (object) => {
         if (currentOrder) setCurrentOrder(prev => {
-            return [...prev, {name: object.name, price: object.price, note: ''}]
+            return [...prev, {name: object.name, price: object.price, note: '', isReady: false}]
         });
-        else setCurrentOrder([{name: object.name, price: object.price, note: ''}])
+        else setCurrentOrder([{name: object.name, price: object.price, note: '', isReady: false}])
     }
 
     const handleRemoveFromOrder = (object) => {
@@ -53,6 +54,7 @@ export const TableScreen = () => {
 
     const handleSubmitOrder = () => {
         dispatch(submitOrder({id: id, order: currentOrder}));
+        navigate('/tables');
     }
 
     const handleFinalizeOrder = () => {
@@ -87,8 +89,8 @@ export const TableScreen = () => {
             <div className="menuPosition">
                 <div className="positionDescription">
                     <h3>{menu.name}</h3>
-                    <textarea onChange={({target}) => {menu.note = target.value}}>
-                        {menu.note ? menu.note : 'Add note'}
+                    <textarea onChange={({target}) => {menu.note = target.value}} defaultValue={menu.note ? menu.note : 'Add note'}>
+
                     </textarea>
                 </div>
                 <div className="priceAndButton">

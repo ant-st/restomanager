@@ -1,0 +1,17 @@
+#kitchen {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+#kitchen h2 {
+    width: 100%;
+}
+
+.order {
+    margin: 20px;
+    width: 30%;
+    background-color: #f0c0c0;
+    border-radius: 10px;
+}
