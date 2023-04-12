@@ -1,5 +1,10 @@
 import {createSlice} from "@reduxjs/toolkit";
 
+const swapElements = (array, index1, index2) => {
+    array[index1] = array.splice(index2, 1, array[index1])[0];
+    return array;
+};
+
 const menusSlice = createSlice({
     name: 'menus',
     initialState: [
@@ -25,6 +30,33 @@ const menusSlice = createSlice({
 
             }
         },
+        deletePositionFromMenu: (state, action) => {
+            for (let i = 0; i < state.length; i++) {
+                if (state[i].id === Number(action.payload.menuId)) {
+                    state[i].positions = state[i].positions.filter(element => element.name !== action.payload.name);
+                    return;
+                }
+            }
+        },
+        swapPosition: (state, action) => {
+            for (let i = 0; i < state.length; i++) {
+                if (state[i].id === Number(action.payload.menuId)) {
+                    let index = state[i].positions.findIndex((element) => {
+                        return element.name === action.payload.name;
+                    });
+                    if (action.payload.down) {
+                        if (index < state[i].positions.length-1) state[i].positions = swapElements(state[i].positions, index, index+1);
+                    }
+                    else {
+                        if (index !== 0) state[i].positions = swapElements(state[i].positions, index, index-1);
+                    }
+                    return;
+
+
+
+                }
+            }
+        },
     }
 });
 
@@ -36,7 +68,9 @@ export const selectMenus = (state) => {
 
 export const {
     addTable,
-    addPositionToMenu
+    addPositionToMenu,
+    deletePositionFromMenu,
+    swapPosition
 } = menusSlice.actions;
 
 export default menusSlice.reducer;
