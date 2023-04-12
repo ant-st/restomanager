@@ -45,19 +45,21 @@ export const DeliveryScreen = () => {
     }
 
     const handleSubmitOrder = () => {
-        dispatch(addOrder({
-            street: currentAdd,
-            city: currentCity,
-            phone: currentPhone,
-            deliNote: currentNote,
-            order: currentOrder,
-            total: currentSum,
-            isSent: false,
-            isReady: false,
-            isChecked: false,
-            paymentMet: currentMethod
-        }));
-        navigate('/delivery');
+        if (currentAdd && currentCity && currentPhone && currentSum) {
+            dispatch(addOrder({
+                street: currentAdd,
+                city: currentCity,
+                phone: currentPhone,
+                deliNote: currentNote,
+                order: currentOrder,
+                total: currentSum,
+                isSent: false,
+                isReady: false,
+                isChecked: false,
+                paymentMet: currentMethod
+            }));
+            navigate('/delivery');
+        }
     }
 
     const handleMethodChange = ({target}) => {

@@ -28,6 +28,15 @@ const deliSlice = createSlice({
                     state[i].isSent = false;
                 }
             }
+        },
+        deleteOrder: (state) => {
+            return state.filter((element) => !element.isChecked);
+        },
+        sendDriver: (state) => {
+            //tbc
+            return state.filter((element) => {
+                return !(element.isChecked && element.isReady);
+            });
         }
     }
 });
@@ -45,7 +54,9 @@ export const {
     addOrder,
     toggleChecked,
     sendToKitchen,
-    toggleReady
+    toggleReady,
+    deleteOrder,
+    sendDriver
 } = deliSlice.actions;
 
 export default deliSlice.reducer;
