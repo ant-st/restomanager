@@ -9,6 +9,9 @@ import {MenuScreen} from "../MenuScreen/menuScreen";
 import {Kitchen} from "../Kitchen/kitchen";
 import {Delivery} from "../Delivery/delivery";
 import {DeliveryScreen} from "../DeliveryScreen/deliveryScreen";
+import {useEffect} from "react";
+import {fetchMenus} from "../Menus/menusSlice";
+import {useDispatch} from "react-redux";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -30,6 +33,12 @@ const router = createBrowserRouter(
 
 
 function App() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchMenus());
+    },[]);
+
   return (
       <RouterProvider router={router}/>
   );
