@@ -1,18 +1,12 @@
 import './menus.css'
 import {NavLink, Outlet} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {addMenu, fetchMenus, selectMenus, selectStatus} from "./menusSlice";
+import {addMenu, deleteMenu, fetchMenus, selectMenus, selectStatus} from "./menusSlice";
 import {useEffect, useState} from "react";
 
 // const menusArray = [{id: 1, name: 'Menu tradycyjne'}, {id: 2, name: 'Menu sezonowe'}];
 
-const renderMenus = (menu) => {
-    return (
-        <NavLink to={String(menu.id)} className="menu" key={`menu ${menu.id}`}>
-            <p>{menu.name}</p>
-        </NavLink>
-    )
-}
+
 
 export const Menus = () => {
     const menus = useSelector(selectMenus);
@@ -20,6 +14,15 @@ export const Menus = () => {
     const dispatch = useDispatch();
 
     const [newMenu, setNewMenu] = useState('');
+
+    const renderMenus = (menu) => {
+        return (
+             <div className="menu" key={`menu ${menu.id}`}>
+                 <NavLink to={String(menu.id)}><p>{menu.name}</p></NavLink>
+                <button onClick = {() => dispatch(deleteMenu(menu.name))}>X</button>
+            </div>
+        )
+    }
 
     const handleNewMenu = ({target}) => {
         setNewMenu(target.value);

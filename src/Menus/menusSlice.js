@@ -47,6 +47,23 @@ export const addMenu = createAsyncThunk( 'menus/addMenu', (name) => {
     });
 });
 
+export const deleteMenu = createAsyncThunk( 'menus/deleteMenu', (name) => {
+    console.log('inside promise');
+    const fetchOptions = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({menu: {name: name}})
+    };
+    return fetch('http://localhost:4000/api/menus', fetchOptions).then(response => {
+        if (!response.ok) {
+            return new Promise(resolve => resolve(null));
+        }
+        else return name;
+    });
+});
+
 const menusSlice = createSlice({
     name: 'menus',
     initialState:
@@ -77,9 +94,9 @@ const menusSlice = createSlice({
             }
         },
         deletePositionFromMenu: (state, action) => {
-            for (let i = 0; i < state.length; i++) {
-                if (state[i].id === Number(action.payload.menuId)) {
-                    state[i].positions = state[i].positions.filter(element => element.name !== action.payload.name);
+            for (let i = 0; i < state.menus.length; i++) {
+                if (state.menus[i].id === Number(action.payload.menuId)) {
+                    state.menus[i].positions = state.menus[i].positions.filter(element => element.name !== action.payload.name);
                     return;
                 }
             }
@@ -138,7 +155,21 @@ const menusSlice = createSlice({
                     ...state,
                     menus: [...state.menus, newMenu],
                     status: "ok",
-                });
+                })
+            })
+
+            .addCase(deleteMenu.pending, (state) => {
+                    return (state = {
+                        ...state,
+                        status: "loading",
+                    });
+                })
+            .addCase(deleteMenu.fulfilled, (state, action) => {
+                return (state = {
+                    ...state,
+                    menus: state.menus.filter(menu => menu.name !== action.payload),
+                    status: "ok",
+                })
         });
     },
 });
@@ -150,8 +181,6 @@ export const selectMenus = (state) => {
 export const selectStatus = (state) => {
     return state.menus.status;
 }
-
-
 
 export const {
     addPositionToMenu,

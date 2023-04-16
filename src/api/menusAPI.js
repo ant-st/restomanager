@@ -6,7 +6,6 @@ const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite'
 
 menuRouter.get('',(req, res, next) => {
     db.all('SELECT * FROM Menus', (err, rows) => {
-        console.log(rows);
         if (err) res.status(500).send(err);
         else res.status(200).json({menus: rows});
     });
@@ -26,6 +25,16 @@ menuRouter.post('', (req, res, next) => {
                 })
             }
         });
+});
+
+menuRouter.delete('', (req, res, next) => {
+    console.log(req.body);
+    console.log(req.body);
+                db.run('DELETE FROM Menus WHERE name=$name', {$name: req.body.menu.name}, (err) => {
+                    if (err) res.status(500).send();
+                    else res.status(204).send();
+                });
+
 });
 
 module.exports = menuRouter;
