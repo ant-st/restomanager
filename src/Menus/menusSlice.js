@@ -11,6 +11,18 @@ const swapElements = (array, index1, index2) => {
 };
 
 export const fetchMenus = createAsyncThunk( 'menus/fetchMenus', () => {
+    let positions;
+    fetch('http://localhost:4000/api/pos')
+        .then(response => {
+            if (!response.ok) {
+                return new Promise(resolve => resolve(null));
+            }
+            return response.json()
+                .then(jsonResponse => {
+                    positions = jsonResponse.positions;
+                })
+        });
+
     return fetch('http://localhost:4000/api/menus')
         .then(response => {
             if (!response.ok) {
@@ -22,7 +34,7 @@ export const fetchMenus = createAsyncThunk( 'menus/fetchMenus', () => {
                         return {
                             id: menu.id,
                             name: menu.name,
-                            positions: []
+                            positions: positions.filter(pos => pos['menu_id'] === menu.id)
                         }
                     });
                 });
@@ -64,6 +76,26 @@ export const deleteMenu = createAsyncThunk( 'menus/deleteMenu', (name) => {
     });
 });
 
+export const addPositionToMenu = createAsyncThunk ('menus/addPosition', (object) => {
+    console.log('inside');
+    console.log(object);
+    const fetchOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({menuItem: object})
+    };
+    return fetch('http://localhost:4000/api/pos', fetchOptions).then(response => {
+        if (!response.ok) {
+            return new Promise(resolve => resolve(null));
+        }
+        return response.json().then(jsonResponse => {
+            return jsonResponse;
+        });
+    });
+});
+
 const menusSlice = createSlice({
     name: 'menus',
     initialState:
@@ -79,6 +111,7 @@ const menusSlice = createSlice({
     ,
 
     reducers: {
+        /*
         addPositionToMenu: (state, action) => {
             let newPosition = {
                 name: action.payload.name,
@@ -93,6 +126,8 @@ const menusSlice = createSlice({
 
             }
         },
+
+         */
         deletePositionFromMenu: (state, action) => {
             for (let i = 0; i < state.menus.length; i++) {
                 if (state.menus[i].id === Number(action.payload.menuId)) {
@@ -170,7 +205,24 @@ const menusSlice = createSlice({
                     menus: state.menus.filter(menu => menu.name !== action.payload),
                     status: "ok",
                 })
-        });
+        })
+
+            .addCase(addPositionToMenu.pending, (state) => {
+            return (state = {
+                ...state,
+                status: "loading",
+            });
+        })
+            .addCase(addPositionToMenu.fulfilled, (state, action) => {
+                let newItem = action.payload.menuItem;
+                state.status = 'ok';
+                for (let i=0; i < state['menus'].length; i++) {
+                    if (state.menus[i].id === newItem['menu_id']) {
+                        state.menus[i].positions.push(newItem);
+                        return;
+                    }
+                }
+            });
     },
 });
 
@@ -183,7 +235,7 @@ export const selectStatus = (state) => {
 }
 
 export const {
-    addPositionToMenu,
+   // addPositionToMenu,
     deletePositionFromMenu,
     swapPosition
 } = menusSlice.actions;

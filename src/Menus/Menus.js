@@ -1,8 +1,10 @@
+// noinspection JSCheckFunctionSignatures
+
 import './menus.css'
 import {NavLink, Outlet} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {addMenu, deleteMenu, fetchMenus, selectMenus, selectStatus} from "./menusSlice";
-import {useEffect, useState} from "react";
+import {addMenu, deleteMenu, selectMenus, selectStatus} from "./menusSlice";
+import {useState} from "react";
 
 // const menusArray = [{id: 1, name: 'Menu tradycyjne'}, {id: 2, name: 'Menu sezonowe'}];
 

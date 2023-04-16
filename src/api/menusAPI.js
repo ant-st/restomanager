@@ -4,14 +4,14 @@ const menuRouter = express.Router();
 
 const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite');
 
-menuRouter.get('',(req, res, next) => {
+menuRouter.get('',(req, res) => {
     db.all('SELECT * FROM Menus', (err, rows) => {
         if (err) res.status(500).send(err);
         else res.status(200).json({menus: rows});
     });
 });
 
-menuRouter.post('', (req, res, next) => {
+menuRouter.post('', (req, res) => {
     let newMenu = req.body.menu;
         db.run('INSERT INTO Menus (name) VALUES ($name)', {
             $name: newMenu.name
@@ -27,10 +27,8 @@ menuRouter.post('', (req, res, next) => {
         });
 });
 
-menuRouter.delete('', (req, res, next) => {
-    console.log(req.body);
-    console.log(req.body);
-                db.run('DELETE FROM Menus WHERE name=$name', {$name: req.body.menu.name}, (err) => {
+menuRouter.delete('', (req, res) => {
+    db.run('DELETE FROM Menus WHERE name=$name', {$name: req.body.menu.name}, (err) => {
                     if (err) res.status(500).send();
                     else res.status(204).send();
                 });

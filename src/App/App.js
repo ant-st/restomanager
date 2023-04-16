@@ -37,7 +37,7 @@ function App() {
 
     useEffect(() => {
         dispatch(fetchMenus());
-    },[]);
+    },[dispatch]);
 
   return (
       <RouterProvider router={router}/>

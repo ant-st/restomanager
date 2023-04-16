@@ -63,9 +63,9 @@ export const MenuScreen = () => {
 
     const handleSubmit = () => {
         let newPosition = {
-            menuId: id,
+            'menu_id': id,
             name: newName,
-            desc: newDesc,
+            description: newDesc,
             price: newPrice
         }
         dispatch(addPositionToMenu(newPosition));
