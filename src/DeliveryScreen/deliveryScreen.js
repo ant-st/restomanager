@@ -13,7 +13,7 @@ export const DeliveryScreen = () => {
 
     let menus = useSelector(selectMenus);
 
-    const [currentMenu, setCurrentMenu] = useState(0);
+    const [currentMenu, setCurrentMenu] = useState({});
     const [currentOrder, setCurrentOrder] = useState([]);
     const [currentSum, setCurrentSum] = useState(0);
 
@@ -28,8 +28,8 @@ export const DeliveryScreen = () => {
         if (currentOrder) setCurrentSum(currentOrder.reduce((sum, current) => sum + Number(current.price),0));
     },[currentOrder]);
 
-    const handleMenuChange = (id) => {
-        setCurrentMenu(id);
+    const handleMenuChange = (menu) => {
+        setCurrentMenu(menu);
     }
 
     const handleAddingToOrder = (object) => {
@@ -68,7 +68,7 @@ export const DeliveryScreen = () => {
 
     const renderMenuButtons = (menu) => {
         return (
-            <button onClick={() => handleMenuChange(menu.id)}>{menu.name}</button>
+            <button onClick={() => handleMenuChange(menu)}>{menu.name}</button>
         )
     }
 
@@ -112,7 +112,7 @@ export const DeliveryScreen = () => {
                 {menus.map(renderMenuButtons)}
             </section>
             <section id="menuListing">
-                {menus[currentMenu].positions.map(renderMenuPositions)}
+                {currentMenu.positions && currentMenu.positions.map(renderMenuPositions)}
             </section>
             <section id="order">
                 {currentOrder && currentOrder.map(renderOrder)}

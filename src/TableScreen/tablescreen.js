@@ -15,12 +15,9 @@ export const TableScreen = () => {
     let menus = useSelector(selectMenus);
     const tables = useSelector(selectTables);
 
-    const [currentMenu, setCurrentMenu] = useState(0);
+    const [currentMenu, setCurrentMenu] = useState({});
     const [currentOrder, setCurrentOrder] = useState([]);
     const [currentSum, setCurrentSum] = useState(0);
-
-    console.log(menus);
-
 
     // Calculating total sum:
     useEffect( () => {
@@ -37,8 +34,8 @@ export const TableScreen = () => {
 
     useEffect(fetchTable, [tables, id])
 
-    const handleMenuChange = (id) => {
-        setCurrentMenu(id-1);
+    const handleMenuChange = (menu) => {
+        setCurrentMenu(menu);
     }
 
     const handleAddingToOrder = (object) => {
@@ -64,7 +61,7 @@ export const TableScreen = () => {
 
     const renderMenuButtons = (menu) => {
         return (
-            <button onClick={() => handleMenuChange(menu.id)}>{menu.name}</button>
+            <button onClick={() => handleMenuChange(menu)}>{menu.name}</button>
         )
     }
 
@@ -109,7 +106,7 @@ export const TableScreen = () => {
                 {menus.map(renderMenuButtons)}
             </section>
             <section id="menuListing">
-                {menus[currentMenu].positions.map(renderMenuPositions)}
+                {currentMenu.positions && currentMenu.positions.map(renderMenuPositions)}
             </section>
             <section id="order">
                 {currentOrder && currentOrder.map(renderOrder)}
