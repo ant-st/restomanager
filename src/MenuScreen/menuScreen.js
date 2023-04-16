@@ -28,7 +28,7 @@ export const MenuScreen = () => {
 
     const renderMenuItems = (item) => {
         return (
-            <div className = "menuPosition">
+            <div className = "menuPosition" key={item.name}>
                 <div>
                     <h3>{item.name}</h3>
                     <p>{item.desc}</p>

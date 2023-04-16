@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const errorHandler = require('errorhandler');
 const sqlite3 = require('sqlite3')
-// const apiRouter = require('./api/api.js');
+const apiRouter = require('./API.js');
 
 const app = express();
 
@@ -16,12 +16,16 @@ app.use(bodyParser.json());
 app.use(cors());
 
 //API:
-//app.use('/api', apiRouter);
+app.use('/api', apiRouter);
 
-app.get('/',(req, res, next) => {
-        db.all('SELECT * FROM Menus', (err, rows) => {
-            if (err) res.status(500).send(err);
-            else res.status(200).json({menus: rows});
+app.get('/restart',(req, res, next) => {
+        db.serialize(() => {
+            db.run('DROP TABLE IF EXISTS Menus');
+            db.run('CREATE TABLE Menus (id INTEGER NOT NULL PRIMARY KEY,' +
+                'name TEXT NOT NULL)');
+            db.run("INSERT INTO Menus (name) VALUES ('Codzienne')");
+            db.run("INSERT INTO Menus (name) VALUES ('Sezonowe')");
+            db.run("INSERT INTO Menus (name) VALUES ('Pizza')");
         });
 });
 

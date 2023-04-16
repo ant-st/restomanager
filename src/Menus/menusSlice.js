@@ -11,48 +11,66 @@ const swapElements = (array, index1, index2) => {
 };
 
 export const fetchMenus = createAsyncThunk( 'menus/fetchMenus', () => {
-    return fetch('http://localhost:4000')
+    return fetch('http://localhost:4000/api/menus')
         .then(response => {
             if (!response.ok) {
                 return new Promise(resolve => resolve(null));
             }
             return response.json()
                 .then(jsonResponse => {
-                    console.log('inside');
                     return jsonResponse.menus.map(menu => {
                         return {
                             id: menu.id,
-                            name: menu.title,
+                            name: menu.name,
                             positions: []
                         }
                     });
                 });
         });
-})
+});
+
+export const addMenu = createAsyncThunk( 'menus/addMenu', (name) => {
+    const fetchOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({menu: {name: name}})
+    };
+    return fetch('http://localhost:4000/api/menus', fetchOptions).then(response => {
+        if (!response.ok) {
+            return new Promise(resolve => resolve(null));
+        }
+        return response.json().then(jsonResponse => {
+            return jsonResponse;
+        });
+    });
+});
 
 const menusSlice = createSlice({
     name: 'menus',
-    initialState: [
+    initialState:
+        {
+            menus: [],
+            status: 'loading'
+        }
         /*
         {id:0, name: 'Klasyczne', positions: [{name: 'Ziemniaki', desc: 'Ziemniaki z pyrami', price: 12}, {name: 'Kamienie', desc: 'Kamienie z pyrami', price: 13}]},
         {id:1, name: 'Sezonowe', positions: [{name: 'Pyry z gzikiem', desc: 'Ziemniaki z pyrami', price: 12}]},
         {id:2, name: 'Pizza', positions: [{name: 'Margherita', desc: 'sos, ser, bazylia', price: 15}, {name: 'Funghi', desc: 'sos, ser, pieczarki', price: 20}]}
         */
-    ],
+    ,
 
     reducers: {
-        addMenu: (state, action) => {
-            state.push(action.payload);
-        },
         addPositionToMenu: (state, action) => {
             let newPosition = {
                 name: action.payload.name,
                 desc: action.payload.desc,
                 price: action.payload.price,
             }
-            for (let i=0;i<state.length;i++) {
-                if (state[i].id === Number(action.payload.menuId)) {
-                    state[i].positions.push(newPosition);
+            for (let i=0;i<state.menus.length;i++) {
+                if (state.menus[i].id === Number(action.payload.menuId)) {
+                    state.menus[i].positions.push(newPosition);
                     return;
                 }
 
@@ -92,7 +110,7 @@ const menusSlice = createSlice({
                     menus: action.payload,
                 });
             })
-            .addCase(fetchMenus.rejected, (state, action) => {
+            .addCase(fetchMenus.rejected, (state) => {
                 return (state = {
                     ...state,
                     status: "failed",
@@ -103,7 +121,25 @@ const menusSlice = createSlice({
                     ...state,
                     status: "loading",
                 });
-            });
+            })
+
+            .addCase(addMenu.pending, (state) => {
+                return (state = {
+                    ...state,
+                    status: "loading",
+                });
+            })
+            .addCase(addMenu.fulfilled, (state, action) => {
+                let newMenu = {
+                    ...action.payload.menu,
+                    positions: []
+                }
+                return (state = {
+                    ...state,
+                    menus: [...state.menus, newMenu],
+                    status: "ok",
+                });
+        });
     },
 });
 
@@ -111,10 +147,13 @@ export const selectMenus = (state) => {
     return state.menus.menus;
 };
 
+export const selectStatus = (state) => {
+    return state.menus.status;
+}
+
 
 
 export const {
-    addTable,
     addPositionToMenu,
     deletePositionFromMenu,
     swapPosition

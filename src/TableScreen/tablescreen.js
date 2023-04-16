@@ -19,6 +19,7 @@ export const TableScreen = () => {
     const [currentOrder, setCurrentOrder] = useState([]);
     const [currentSum, setCurrentSum] = useState(0);
 
+    console.log(menus);
 
 
     // Calculating total sum:
@@ -37,7 +38,7 @@ export const TableScreen = () => {
     useEffect(fetchTable, [tables, id])
 
     const handleMenuChange = (id) => {
-        setCurrentMenu(id);
+        setCurrentMenu(id-1);
     }
 
     const handleAddingToOrder = (object) => {
