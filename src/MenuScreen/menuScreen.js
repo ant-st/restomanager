@@ -31,7 +31,7 @@ export const MenuScreen = () => {
             <div className = "menuPosition" key={item.name}>
                 <div>
                     <h3>{item.name}</h3>
-                    <p>{item.desc}</p>
+                    <p>{item.description}</p>
                 </div>
                 <h4>{item.price}</h4>
                 <div>

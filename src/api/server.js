@@ -26,6 +26,19 @@ app.get('/restart',(req, res, next) => {
             db.run("INSERT INTO Menus (name) VALUES ('Codzienne')");
             db.run("INSERT INTO Menus (name) VALUES ('Sezonowe')");
             db.run("INSERT INTO Menus (name) VALUES ('Pizza')");
+
+            db.run('DROP TABLE IF EXISTS MenuItem');
+            db.run('CREATE TABLE MenuItem (id INTEGER NOT NULL PRIMARY KEY,' +
+                'name TEXT NOT NULL,' +
+                'description TEXT,' +
+                'price INTEGER NOT NULL,' +
+                'menu_id INTEGER NOT NULL)');
+            db.run(`INSERT INTO MenuItem (name, description, price, menu_id) VALUES ('Schabowy', 'Z ziemniakami', 10, 1)`);
+            db.run(`INSERT INTO MenuItem (name, description, price, menu_id) VALUES ('Piers z kurczaka', 'Z ziemniakami', 11, 1)`);
+            db.run(`INSERT INTO MenuItem (name, description, price, menu_id) VALUES ('Pyry z gzikiem', 'Wielkopolski specjal', 13, 2)`);
+            db.run(`INSERT INTO MenuItem (name, description, price, menu_id) VALUES ('Makaron ze szparagami', 'Wegetarianski', 15, 2)`);
+            db.run(`INSERT INTO MenuItem (name, description, price, menu_id) VALUES ('Margherita', 'sos, ser, bazylia', 8, 3)`);
+            db.run(`INSERT INTO MenuItem (name, description, price, menu_id) VALUES ('Funghi', 'sos, ser, pieczarki', 10, 3)`);
         });
 });
 

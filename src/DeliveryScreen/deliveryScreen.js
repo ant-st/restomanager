@@ -77,7 +77,7 @@ export const DeliveryScreen = () => {
             <div className="menuPosition">
                 <div className="positionDescription">
                     <h3>{menu.name}</h3>
-                    <p>{menu.desc}</p>
+                    <p>{menu.description}</p>
                 </div>
                 <div className="priceAndButton">
                     <h3>{menu.price}$</h3>

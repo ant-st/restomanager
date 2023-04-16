@@ -111,23 +111,6 @@ const menusSlice = createSlice({
     ,
 
     reducers: {
-        /*
-        addPositionToMenu: (state, action) => {
-            let newPosition = {
-                name: action.payload.name,
-                desc: action.payload.desc,
-                price: action.payload.price,
-            }
-            for (let i=0;i<state.menus.length;i++) {
-                if (state.menus[i].id === Number(action.payload.menuId)) {
-                    state.menus[i].positions.push(newPosition);
-                    return;
-                }
-
-            }
-        },
-
-         */
         deletePositionFromMenu: (state, action) => {
             for (let i = 0; i < state.menus.length; i++) {
                 if (state.menus[i].id === Number(action.payload.menuId)) {
