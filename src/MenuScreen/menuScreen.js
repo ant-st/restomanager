@@ -1,6 +1,6 @@
 import {useParams} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
-import {addPositionToMenu, deletePosition, selectMenus, swapPosition} from "../Menus/menusSlice";
+import {addPositionToMenu, deletePosition, selectMenus} from "../Menus/menusSlice";
 import {useEffect, useState} from "react";
 import './menuScreen.css'
 
@@ -38,15 +38,19 @@ export const MenuScreen = () => {
                     <button onClick = {() => {
                         dispatch(deletePosition({name: item.name, menuId: id}))
                     }}>Delete</button>
-                    <button onClick = {() => {
+
+                </div>
+            </div>
+        )
+
+        /*
+        <button onClick = {() => {
                         dispatch(swapPosition({name: item.name, menuId: id, down: true}))
                     }}>Down</button>
                     <button onClick = {() => {
                         dispatch(swapPosition({name: item.name, menuId: id, down: false}))
                     }}>Up</button>
-                </div>
-            </div>
-        )
+         */
     }
 
     const handleNameChange = ({target}) => {

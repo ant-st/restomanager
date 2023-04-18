@@ -1,10 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
-/*
-import sqlite3 from 'sqlite3';
-const db = new sqlite3.Database('../database.sqlite');
-*/
-
 const swapElements = (array, index1, index2) => {
     array[index1] = array.splice(index2, 1, array[index1])[0];
     return array;
@@ -118,13 +113,7 @@ const menusSlice = createSlice({
             menus: [],
             status: 'loading'
         }
-        /*
-        {id:0, name: 'Klasyczne', positions: [{name: 'Ziemniaki', desc: 'Ziemniaki z pyrami', price: 12}, {name: 'Kamienie', desc: 'Kamienie z pyrami', price: 13}]},
-        {id:1, name: 'Sezonowe', positions: [{name: 'Pyry z gzikiem', desc: 'Ziemniaki z pyrami', price: 12}]},
-        {id:2, name: 'Pizza', positions: [{name: 'Margherita', desc: 'sos, ser, bazylia', price: 15}, {name: 'Funghi', desc: 'sos, ser, pieczarki', price: 20}]}
-        */
     ,
-
     reducers: {
         swapPosition: (state, action) => {
             for (let i = 0; i < state.length; i++) {
