@@ -12,6 +12,7 @@ import {DeliveryScreen} from "../DeliveryScreen/deliveryScreen";
 import {useEffect} from "react";
 import {fetchMenus} from "../Menus/menusSlice";
 import {useDispatch} from "react-redux";
+import {fetchTables} from "../Tables/tablesSlice";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -37,6 +38,7 @@ function App() {
 
     useEffect(() => {
         dispatch(fetchMenus());
+        dispatch(fetchTables());
     },[dispatch]);
 
   return (

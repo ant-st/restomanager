@@ -3,7 +3,8 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const errorHandler = require('errorhandler');
-const sqlite3 = require('sqlite3')
+const sqlite3 = require('sqlite3');
+
 const apiRouter = require('./API.js');
 
 const app = express();
@@ -26,6 +27,13 @@ app.get('/restart',(req, res, next) => {
             db.run("INSERT INTO Menus (name) VALUES ('Codzienne')");
             db.run("INSERT INTO Menus (name) VALUES ('Sezonowe')");
             db.run("INSERT INTO Menus (name) VALUES ('Pizza')");
+
+            db.run('DROP TABLE IF EXISTS Tables');
+            db.run('CREATE TABLE Tables (id INTEGER NOT NULL PRIMARY KEY,' +
+                'name TEXT NOT NULL)');
+            db.run("INSERT INTO Tables (name) VALUES ('Przy oknie')");
+            db.run("INSERT INTO Tables (name) VALUES ('Kominek')");
+            db.run("INSERT INTO Tables (name) VALUES ('Przy ladzie')");
 
             db.run('DROP TABLE IF EXISTS MenuItem');
             db.run('CREATE TABLE MenuItem (id INTEGER NOT NULL PRIMARY KEY,' +

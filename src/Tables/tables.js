@@ -7,7 +7,7 @@ import {selectTables} from "./tablesSlice";
 
 const renderTable = (table) => {
     return (
-        <NavLink to={String(table.id)} className={`table ${!table.isServed ? 'Empty' : table.isReady ? 'Ready' : 'Preparing'}`} >
+        <NavLink to={String(table.id)} className={`table ${!table.isServed ? 'Empty' : table.isReady ? 'Ready' : 'Preparing'}`} key={table.name}>
             <p>{table.name}</p>
             <p>{!table.isServed ? 'Empty' : table.isReady ? 'Ready' : 'Preparing'}</p>
         </NavLink>

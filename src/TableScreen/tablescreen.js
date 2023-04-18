@@ -25,7 +25,6 @@ export const TableScreen = () => {
     },[currentOrder]);
 
     const fetchTable = () => {
-        console.log('fetching table');
         for (let i=0; i<tables.length; i++)
             if (tables[i].id === Number(id)) {
                 setCurrentOrder(tables[i].order);
@@ -61,7 +60,7 @@ export const TableScreen = () => {
 
     const renderMenuButtons = (menu) => {
         return (
-            <button onClick={() => handleMenuChange(menu)}>{menu.name}</button>
+            <button key={menu.name + ' button'} onClick={() => handleMenuChange(menu)}>{menu.name}</button>
         )
     }
 

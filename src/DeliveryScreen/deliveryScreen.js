@@ -68,7 +68,7 @@ export const DeliveryScreen = () => {
 
     const renderMenuButtons = (menu) => {
         return (
-            <button onClick={() => handleMenuChange(menu)}>{menu.name}</button>
+            <button key={menu.name + ' button'} onClick={() => handleMenuChange(menu)}>{menu.name}</button>
         )
     }
 
@@ -129,8 +129,8 @@ export const DeliveryScreen = () => {
                 <textarea defaultValue="Wrocław" onChange={({target}) => setCurrentCity(target.value)}></textarea>
                 <textarea defaultValue="Phone" onChange={({target}) => setCurrentPhone(target.value)}></textarea>
                 <textarea defaultValue="deliNote" onChange={({target}) => setCurrentNote(target.value)}></textarea>
-                <select onChange={handleMethodChange}>
-                    <option selected={true} value="cash">Gotówka</option>
+                <select defaultValue="cash" onChange={handleMethodChange}>
+                    <option value="cash">Gotówka</option>
                     <option value="card">Karta</option>
                     <option value="online">Zapłacono on-line</option>
                 </select>
