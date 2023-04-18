@@ -10,7 +10,7 @@ export const Kitchen = () => {
     const dispatch = useDispatch();
 
     const renderOrder = (order) => {
-        if (!order.isReady || order.street) return (<li>
+        if (!order.isReady || order.street) return (<li key={order.name}>
             <h3>{order.name}</h3>
             <h5>{order.note}</h5>
         </li>)
@@ -19,7 +19,7 @@ export const Kitchen = () => {
     const renderTable = (table) => {
         if (table.order[0] && !table.isReady) {
             return (
-                <div className="order">
+                <div className="order" key={'order ' + table.id}>
                     <ol>
                     {table.order.map(renderOrder)}
                     </ol>
@@ -32,7 +32,7 @@ export const Kitchen = () => {
     const renderDelivery = (deli) => {
         if (deli.order[0] && !deli.isReady) {
             return (
-                <div className="order">
+                <div className="order" key={'order ' + deli.street}>
                     <ol>
                         {deli.order.map(renderOrder)}
                     </ol>

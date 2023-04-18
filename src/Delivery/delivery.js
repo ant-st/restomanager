@@ -15,7 +15,7 @@ export const Delivery = () => {
         else status = 'Przyjęte';
 
         return (
-            <div className = "deli">
+            <div className = "deli" key={deli.street}>
                 <h4>{deli.street}, {deli.city}</h4>
                 <p>{deli.order.length} pozycji: {deli.total}$</p>
                 <p>{deli.deliNote}</p>

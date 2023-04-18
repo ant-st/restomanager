@@ -74,7 +74,7 @@ export const DeliveryScreen = () => {
 
     const renderMenuPositions = (menu) => {
         return (
-            <div className="menuPosition">
+            <div className="menuPosition" key={menu.name}>
                 <div className="positionDescription">
                     <h3>{menu.name}</h3>
                     <p>{menu.description}</p>
@@ -89,7 +89,7 @@ export const DeliveryScreen = () => {
 
     const renderOrder = (menu) => {
         return (
-            <div className="menuPosition">
+            <div className="menuPosition" key={'order ' + menu.name}>
                 <div className="positionDescription">
                     <h3>{menu.name}</h3>
                     <textarea onChange={({target}) => {menu.note = target.value}} defaultValue={menu.note ? menu.note : 'Add note'}>
