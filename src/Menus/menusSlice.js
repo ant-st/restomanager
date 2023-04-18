@@ -55,7 +55,6 @@ export const addMenu = createAsyncThunk( 'menus/addMenu', (name) => {
 });
 
 export const deleteMenu = createAsyncThunk( 'menus/deleteMenu', (name) => {
-    console.log('inside promise');
     const fetchOptions = {
         method: 'DELETE',
         headers: {

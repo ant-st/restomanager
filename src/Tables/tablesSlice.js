@@ -1,5 +1,4 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {fetchMenus} from "../Menus/menusSlice";
 
 export const fetchTables = createAsyncThunk( 'tables/fetchTables', () => {
 
@@ -23,6 +22,40 @@ export const fetchTables = createAsyncThunk( 'tables/fetchTables', () => {
                 })
         });
 
+export const addTable = createAsyncThunk( 'tables/addTable', (name) => {
+    const fetchOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({table: {name: name}})
+    };
+    return fetch('http://localhost:4000/api/tables', fetchOptions).then(response => {
+        if (!response.ok) {
+            return new Promise(resolve => resolve(null));
+        }
+        return response.json().then(jsonResponse => {
+            return jsonResponse;
+        });
+    });
+});
+
+export const deleteTable = createAsyncThunk( 'tables/deleteTables', (id) => {
+    const fetchOptions = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({table: {id: id}})
+    };
+    return fetch('http://localhost:4000/api/tables', fetchOptions).then(response => {
+        if (!response.ok) {
+            return new Promise(resolve => resolve(null));
+        }
+        else return id;
+    });
+});
+
 const tablesSlice = createSlice({
     name: 'tables',
     initialState: {
@@ -30,14 +63,10 @@ const tablesSlice = createSlice({
         status: 'ok'
     },
     reducers: {
-        addTable: (state, action) => {
-            state.tables.push(action.payload);
-        },
         submitOrder: (state, action) => {
-            console.log('submitting order');
+
             for (let i = 0; i < state.tables.length; i++) {
                 if (state.tables[i].id === Number(action.payload.id)) {
-                    console.log('order submitted!');
                     state.tables[i].order = action.payload.order;
                     state.tables[i].isServed = true;
                     state.tables[i].isReady = false;
@@ -65,23 +94,59 @@ const tablesSlice = createSlice({
     extraReducers:  (builder) => {
         builder
             .addCase(fetchTables.fulfilled, (state, action) => {
-                return (state = {
+                return ({
                     ...state,
                     tables: action.payload,
                     status: "ok",
                 });
             })
             .addCase(fetchTables.rejected, (state) => {
-                return (state = {
+                return ({
                     ...state,
                     status: "failed",
                 });
             })
             .addCase(fetchTables.pending, (state) => {
-                return (state = {
+                return ({
                     ...state,
                     status: "loading",
                 });
+            })
+
+            .addCase(addTable.pending, (state) => {
+                return ({
+                    ...state,
+                    status: "loading",
+                });
+            })
+            .addCase(addTable.fulfilled, (state, action) => {
+                console.log(action.payload);
+                let newTable = {
+                    ...action.payload.table,
+                    order: [],
+                    isServed: false,
+                    isReady: false
+
+                }
+                return ({
+                    ...state,
+                    tables: [...state.tables, newTable],
+                    status: "ok",
+                })
+            })
+
+            .addCase(deleteTable.pending, (state) => {
+                return ({
+                    ...state,
+                    status: "loading",
+                });
+            })
+            .addCase(deleteTable.fulfilled, (state, action) => {
+                return ({
+                    ...state,
+                    tables: state.tables.filter(table => table.id !== action.payload),
+                    status: "ok",
+                })
             });
     }
 });
@@ -90,13 +155,9 @@ export const selectTables = (state) => {
     return state.tables.tables;
 };
 
-export const selectOrders = (state) => {
-    return state.tables.map(element => element.order);
-}
 
 
 export const {
-    addTable,
     submitOrder,
     finalizeOrder,
     toggleIsReady

@@ -13,6 +13,7 @@ import {useEffect} from "react";
 import {fetchMenus} from "../Menus/menusSlice";
 import {useDispatch} from "react-redux";
 import {fetchTables} from "../Tables/tablesSlice";
+import {Settings} from "../Settings/settings";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
             <Route path="kitchen" element={<Kitchen/>}/>
             <Route path="delivery" element={<Delivery/>}/>
             <Route path="delivery/new" element={<DeliveryScreen/>}/>
+            <Route path="settings" element={<Settings/>}/>
         </Route>
     ));
 

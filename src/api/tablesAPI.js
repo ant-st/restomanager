@@ -11,4 +11,27 @@ tablesRouter.get('',(req, res) => {
     });
 });
 
+tablesRouter.post('', (req, res) => {
+    let newTable = req.body.table;
+    db.run('INSERT INTO Tables (name) VALUES ($name)', {
+        $name: newTable.name
+    }, function (err) {
+        if (err) res.status(500).send("Inserting failed!");
+        else {
+            let id = this.lastID;
+            db.get('SELECT * FROM Tables WHERE id=$id', {$id: id}, (err, row) => {
+                if (err) res.status(500).send("Selecting failed!");
+                else res.status(201).json({table: row});
+            })
+        }
+    });
+});
+
+tablesRouter.delete('', (req, res) => {
+    db.run('DELETE FROM Tables WHERE id=$id', {$id: req.body.table.id}, (err) => {
+        if (err) res.status(500).send();
+        else res.status(204).send();
+    });
+});
+
 module.exports = tablesRouter;
