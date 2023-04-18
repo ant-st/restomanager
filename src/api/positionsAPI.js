@@ -13,7 +13,6 @@ posRouter.get('',(req, res) => {
 
 posRouter.post('',(req, res) => {
     let newItem = req.body.menuItem;
-    console.log(newItem);
     db.run('INSERT INTO MenuItem (name, description, price, menu_id) VALUES ($name, $description, $price, $menu_id)', {
             $name: newItem.name,
             $description: newItem.description,
@@ -30,6 +29,13 @@ posRouter.post('',(req, res) => {
             }
         }
     );
+});
+
+posRouter.delete('', (req, res) => {
+    db.run('DELETE FROM MenuItem WHERE name=$name', {$name: req.body.item.name}, (err) => {
+        if (err) res.status(500).send();
+        else res.status(204).send();
+    });
 });
 
 module.exports = posRouter;

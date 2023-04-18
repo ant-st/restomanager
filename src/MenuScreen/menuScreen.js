@@ -1,6 +1,6 @@
 import {useParams} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
-import {addPositionToMenu, deletePositionFromMenu, selectMenus, swapPosition} from "../Menus/menusSlice";
+import {addPositionToMenu, deletePosition, selectMenus, swapPosition} from "../Menus/menusSlice";
 import {useEffect, useState} from "react";
 import './menuScreen.css'
 
@@ -36,7 +36,7 @@ export const MenuScreen = () => {
                 <h4>{item.price}</h4>
                 <div>
                     <button onClick = {() => {
-                        dispatch(deletePositionFromMenu({name: item.name, menuId: id}))
+                        dispatch(deletePosition({name: item.name, menuId: id}))
                     }}>Delete</button>
                     <button onClick = {() => {
                         dispatch(swapPosition({name: item.name, menuId: id, down: true}))

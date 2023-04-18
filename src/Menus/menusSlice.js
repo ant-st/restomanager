@@ -76,9 +76,24 @@ export const deleteMenu = createAsyncThunk( 'menus/deleteMenu', (name) => {
     });
 });
 
+export const deletePosition = createAsyncThunk( 'menus/deletePosition', (position) => {
+
+    const fetchOptions = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({item: {name: position.name}})
+    };
+    return fetch('http://localhost:4000/api/pos', fetchOptions).then(response => {
+        if (!response.ok) {
+            return new Promise(resolve => resolve(null));
+        }
+        else return position;
+    });
+});
+
 export const addPositionToMenu = createAsyncThunk ('menus/addPosition', (object) => {
-    console.log('inside');
-    console.log(object);
     const fetchOptions = {
         method: 'POST',
         headers: {
@@ -111,14 +126,6 @@ const menusSlice = createSlice({
     ,
 
     reducers: {
-        deletePositionFromMenu: (state, action) => {
-            for (let i = 0; i < state.menus.length; i++) {
-                if (state.menus[i].id === Number(action.payload.menuId)) {
-                    state.menus[i].positions = state.menus[i].positions.filter(element => element.name !== action.payload.name);
-                    return;
-                }
-            }
-        },
         swapPosition: (state, action) => {
             for (let i = 0; i < state.length; i++) {
                 if (state[i].id === Number(action.payload.menuId)) {
@@ -205,6 +212,23 @@ const menusSlice = createSlice({
                         return;
                     }
                 }
+            })
+
+            .addCase(deletePosition.pending, (state) => {
+            return (state = {
+                ...state,
+                status: "loading",
+            });
+        })
+            .addCase(deletePosition.fulfilled, (state, action) => {
+                    state.status = 'ok';
+                    console.log(action.payload)
+                    for (let i=0; i < state['menus'].length; i++) {
+                    if (state.menus[i].id === Number(action.payload['menuId'])) {
+                        state.menus[i].positions = state.menus[i].positions.filter(item => item.name !== action.payload.name)
+                        return;
+                    }
+                }
             });
     },
 });
@@ -218,8 +242,6 @@ export const selectStatus = (state) => {
 }
 
 export const {
-   // addPositionToMenu,
-    deletePositionFromMenu,
     swapPosition
 } = menusSlice.actions;
 
