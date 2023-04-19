@@ -56,7 +56,9 @@ export const DeliveryScreen = () => {
                 isSent: false,
                 isReady: false,
                 isChecked: false,
-                paymentMet: currentMethod
+                paymentMet: currentMethod,
+                orderTime: new Date().toLocaleTimeString(),
+                closingTime: null
             }));
             navigate('/delivery');
         }

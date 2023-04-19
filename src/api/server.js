@@ -21,6 +21,21 @@ app.use('/api', apiRouter);
 
 app.get('/restart',(req, res, next) => {
         db.serialize(() => {
+
+            db.run('DROP TABLE IF EXISTS History');
+            db.run('CREATE TABLE History (id INTEGER NOT NULL PRIMARY KEY,' +
+                'type TEXT NOT NULL,' +
+                'name TEXT NOT NULL,' +
+                'date TEXT NOT NULL,' +
+                'order_time TEXT NOT NULL,' +
+                'closing_time TEXT NOT NULL,' +
+                'price INTEGER NOT NULL,' +
+                'payment TEXT NOT NULL,' +
+                'user INTEGER,' +
+                'driver INTEGER)');
+
+
+
             db.run('DROP TABLE IF EXISTS Menus');
             db.run('CREATE TABLE Menus (id INTEGER NOT NULL PRIMARY KEY,' +
                 'name TEXT NOT NULL)');

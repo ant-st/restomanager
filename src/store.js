@@ -2,11 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import tablesSliceReducer from "./Tables/tablesSlice";
 import menusSliceReducer from "./Menus/menusSlice";
 import deliSliceReducer from "./Delivery/deliSlice";
+import salesSliceReducer from "./Sales/salesSlice";
 
 export default configureStore({
     reducer: {
         tables: tablesSliceReducer,
         menus: menusSliceReducer,
-        deli: deliSliceReducer
+        deli: deliSliceReducer,
+        sales: salesSliceReducer
     },
 });

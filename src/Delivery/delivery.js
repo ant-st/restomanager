@@ -14,12 +14,15 @@ export const Delivery = () => {
         else if (deli.isSent) status = 'Wysłane do kuchni';
         else status = 'Przyjęte';
 
+        let orderTime = deli.orderTime;
+
         return (
             <div className = "deli" key={deli.street}>
                 <h4>{deli.street}, {deli.city}</h4>
                 <p>{deli.order.length} pozycji: {deli.total}$</p>
                 <p>{deli.deliNote}</p>
                 <p>Status: {status}</p>
+                <p>{orderTime}</p>
                 <button onClick = {() => dispatch(toggleChecked(deli.street))}>Check</button>
             </div>
         )

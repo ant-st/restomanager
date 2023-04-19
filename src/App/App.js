@@ -1,6 +1,7 @@
 import {Root} from "../Root/root";
 import './App.css';
 import {RouterProvider, createRoutesFromElements, Route, createBrowserRouter} from "react-router-dom";
+
 import {Homepage} from "../HomePage/homepage";
 import {Tables} from "../Tables/tables";
 import {TableScreen} from "../TableScreen/tablescreen";
@@ -9,11 +10,14 @@ import {MenuScreen} from "../MenuScreen/menuScreen";
 import {Kitchen} from "../Kitchen/kitchen";
 import {Delivery} from "../Delivery/delivery";
 import {DeliveryScreen} from "../DeliveryScreen/deliveryScreen";
+import {Settings} from "../Settings/settings";
+import {Sales} from "../Sales/sales";
+
 import {useEffect} from "react";
 import {fetchMenus} from "../Menus/menusSlice";
 import {useDispatch} from "react-redux";
 import {fetchTables} from "../Tables/tablesSlice";
-import {Settings} from "../Settings/settings";
+
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -30,6 +34,7 @@ const router = createBrowserRouter(
             <Route path="delivery" element={<Delivery/>}/>
             <Route path="delivery/new" element={<DeliveryScreen/>}/>
             <Route path="settings" element={<Settings/>}/>
+            <Route path="sales" element={<Sales/>}/>
         </Route>
     ));
 

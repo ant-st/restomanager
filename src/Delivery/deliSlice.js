@@ -34,6 +34,27 @@ const deliSlice = createSlice({
         },
         sendDriver: (state) => {
             //tbc
+            state.forEach(element => {
+                if (element.isChecked && element.isReady) {
+                    let objectToSend = {
+                        type: 'deli',
+                        name: element.phone,
+                        'order_time': element.orderTime,
+                        'closing_time': new Date().toLocaleTimeString(),
+                        price: element.total,
+                        payment: element.paymentMet,
+                    }
+                    console.log(objectToSend);
+                    const fetchOptions = {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({history: objectToSend})
+                    };
+                    fetch('http://localhost:4000/api/history', fetchOptions).then(() => console.log('Saving to history'));
+                }
+            });
             return state.filter((element) => {
                 return !(element.isChecked && element.isReady);
             });
