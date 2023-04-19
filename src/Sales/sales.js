@@ -1,19 +1,27 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchSales, selectSales} from "./salesSlice";
+import {fetchSales, selectFilteredSales, setSalesFilter} from "./salesSlice";
 
 export const Sales = () => {
     const dispatch = useDispatch();
-    const sales = useSelector(selectSales);
+    const sales = useSelector(selectFilteredSales);
     const [total, setTotal] = useState(0);
+    const [filter, setFilter] = useState({
+        delis: true,
+        tables: true
+    });
 
     useEffect(() => {
         dispatch(fetchSales());
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         setTotal(sales.reduce((sum, row) => sum + Number(row.price), 0));
-    }, [sales])
+    }, [sales]);
+
+    useEffect(() => {
+        dispatch(setSalesFilter(filter));
+    },[filter, dispatch]);
 
     const renderRow = (row) => {
         return (
@@ -30,9 +38,31 @@ export const Sales = () => {
         )
     }
 
+
+
     return (
         <div id="salesTable">
             Sales
+            <div id="filters">
+                <label>
+                    <input type="checkbox" defaultChecked={true} onChange={() => {setFilter((prev) => {
+                                return {
+                                ...prev,
+                                delis: !prev.delis
+                                }
+                           })}}/>
+                    Dostawy
+                </label>
+                <label>
+                    <input type="checkbox" defaultChecked={true} onChange={() => {setFilter((prev) => {
+                            return {
+                                ...prev,
+                                tables: !prev.tables
+                            }
+                        })}}/>
+                    W lokalu
+                </label>
+            </div>
             <table>
                 <thead>
                     <tr>

@@ -30,10 +30,18 @@ const salesSlice = createSlice({
     initialState:
         {
             sales: [],
+            filter: {
+                delis: true,
+                tables: true
+            },
             status: 'loading'
         }
     ,
-    reducers: {},
+    reducers: {
+        setSalesFilter: (state, action) => {
+            return {...state, filter: action.payload}
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchSales.fulfilled, (state, action) => {
@@ -58,6 +66,16 @@ const salesSlice = createSlice({
     }
 });
 
-export const selectSales = (state) => {return state.sales.sales}
+export const {
+    setSalesFilter
+} = salesSlice.actions;
+
+export const selectSales = (state) => {return state.sales.sales};
+
+export const selectFilteredSales = (state) => {
+    return state.sales.sales.filter(element => {
+        return !!((element.type === 'deli' && state.sales['filter'].delis) || (element.type === 'table' && state.sales['filter'].tables));
+    })
+}
 
 export default salesSlice.reducer;
