@@ -1,14 +1,19 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchSales, selectSales} from "./salesSlice";
 
 export const Sales = () => {
     const dispatch = useDispatch();
     const sales = useSelector(selectSales);
+    const [total, setTotal] = useState(0);
 
     useEffect(() => {
         dispatch(fetchSales());
     }, []);
+
+    useEffect(() => {
+        setTotal(sales.reduce((sum, row) => sum + Number(row.price), 0));
+    }, [sales])
 
     const renderRow = (row) => {
         return (
@@ -45,6 +50,7 @@ export const Sales = () => {
                     {sales && sales.map(renderRow)}
                 </tbody>
             </table>
+            <h3>Total: {total}</h3>
         </div>
     )
 }

@@ -18,6 +18,7 @@ export const TableScreen = () => {
     const [currentMenu, setCurrentMenu] = useState({});
     const [currentOrder, setCurrentOrder] = useState([]);
     const [currentSum, setCurrentSum] = useState(0);
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     // Calculating total sum:
     useEffect( () => {
@@ -27,6 +28,7 @@ export const TableScreen = () => {
     const fetchTable = () => {
         for (let i=0; i<tables.length; i++)
             if (tables[i].id === Number(id)) {
+                setIsSubmitted(tables[i].isServed)
                 setCurrentOrder(tables[i].order);
             }
     }
@@ -50,12 +52,24 @@ export const TableScreen = () => {
     }
 
     const handleSubmitOrder = () => {
-        dispatch(submitOrder({id: id, order: currentOrder}));
-        navigate('/tables');
+        console.log(currentSum);
+
+        if (Number(currentSum) !== 0) {
+            dispatch(submitOrder({id: id, order: currentOrder, orderTime: new Date().toLocaleTimeString()}));
+            navigate('/tables');
+        }
+
+
     }
 
     const handleFinalizeOrder = () => {
-        dispatch(finalizeOrder(id));
+        if (isSubmitted) {
+            dispatch(finalizeOrder({
+                id: id,
+                price: currentSum,
+            }));
+            navigate('/tables');
+        }
     }
 
     const renderMenuButtons = (menu) => {
