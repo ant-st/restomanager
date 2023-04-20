@@ -53,7 +53,6 @@ export const TableScreen = () => {
     }
 
     const handleSubmitOrder = () => {
-        console.log(currentSum);
 
         if (Number(currentSum) !== 0) {
             dispatch(submitOrder({id: id, order: currentOrder, orderTime: new Date().toLocaleTimeString()}));
