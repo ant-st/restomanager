@@ -83,7 +83,7 @@ const tablesSlice = createSlice({
                         'order_time': state.tables[i].orderTime,
                         'closing_time': new Date().toLocaleTimeString(),
                         price: action.payload.price,
-                        payment: 'cash'
+                        payment: action.payload.payment
                     }
                     const fetchOptions = {
                         method: 'POST',

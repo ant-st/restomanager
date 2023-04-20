@@ -18,6 +18,7 @@ export const TableScreen = () => {
     const [currentMenu, setCurrentMenu] = useState({});
     const [currentOrder, setCurrentOrder] = useState([]);
     const [currentSum, setCurrentSum] = useState(0);
+    const [currentPay, setCurrentPay] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
 
     // Calculating total sum:
@@ -63,10 +64,11 @@ export const TableScreen = () => {
     }
 
     const handleFinalizeOrder = () => {
-        if (isSubmitted) {
+        if (isSubmitted && currentPay) {
             dispatch(finalizeOrder({
                 id: id,
                 price: currentSum,
+                payment: currentPay
             }));
             navigate('/tables');
         }
@@ -109,6 +111,10 @@ export const TableScreen = () => {
         )
     }
 
+    const handleMethodChange = ({target}) => {
+        setCurrentPay(target.value)
+    }
+
     return (
         <div id="tableScreen">
             <section id="tableName">
@@ -126,6 +132,12 @@ export const TableScreen = () => {
             </section>
             <section id="total">
                 <h4>Total: {currentSum}$</h4>
+                <select defaultValue="" onChange={handleMethodChange}>
+                    <option value="">Metoda płatności:</option>
+                    <option value="cash">Gotówka</option>
+                    <option value="card">Karta</option>
+                    <option value="online">Zapłacono on-line</option>
+                </select>
                 <button onClick={handleSubmitOrder}>Submit order</button>
                 <button onClick={handleFinalizeOrder}>Finalize order</button>
             </section>
