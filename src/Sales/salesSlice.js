@@ -32,7 +32,10 @@ const salesSlice = createSlice({
             sales: [],
             filter: {
                 delis: true,
-                tables: true
+                tables: true,
+                date: null,
+                searchTerm: '',
+                payment: ''
             },
             status: 'loading'
         }
@@ -74,7 +77,17 @@ export const selectSales = (state) => {return state.sales.sales};
 
 export const selectFilteredSales = (state) => {
     return state.sales.sales.filter(element => {
-        return !!((element.type === 'deli' && state.sales['filter'].delis) || (element.type === 'table' && state.sales['filter'].tables));
+        return !!(
+            ((element.type === 'deli' && state.sales['filter'].delis)
+            ||
+            (element.type === 'table' && state.sales['filter'].tables))
+            &&
+            (!state.sales['filter'].date || state.sales['filter'].date === element.date)
+            &&
+            (element.name.toLowerCase().includes(state.sales['filter'].searchTerm.toLowerCase()))
+            &&
+            (element.payment.includes(state.sales['filter'].payment))
+        );
     })
 }
 

@@ -8,12 +8,15 @@ export const Sales = () => {
     const [total, setTotal] = useState(0);
     const [filter, setFilter] = useState({
         delis: true,
-        tables: true
+        tables: true,
+        date: null,
+        searchTerm: '',
+        payment: ''
     });
 
     useEffect(() => {
         dispatch(fetchSales());
-    }, [dispatch]);
+    }, []);
 
     useEffect(() => {
         setTotal(sales.reduce((sum, row) => sum + Number(row.price), 0));
@@ -22,6 +25,34 @@ export const Sales = () => {
     useEffect(() => {
         dispatch(setSalesFilter(filter));
     },[filter, dispatch]);
+
+    const handleDateChange = ({target}) => {
+        setFilter(prev => {
+            return {
+                ...prev,
+                date: target.value ? new Date(target.value).toLocaleDateString('en-GB') : null,
+            }
+        });
+    }
+
+    const handleSearchTermChange = ({target}) => {
+        setFilter(prev => {
+            return {
+                ...prev,
+                searchTerm: target.value
+            }
+        });
+    }
+
+    const handleMethodChange = ({target}) => {
+        setFilter(prev => {
+            return {
+                ...prev,
+                payment: target.value
+            }
+        });
+    }
+
 
     const renderRow = (row) => {
         return (
@@ -62,6 +93,15 @@ export const Sales = () => {
                         })}}/>
                     W lokalu
                 </label>
+                <input type="date" onChange={handleDateChange} defaultValue={null}/>
+                <button onClick={handleDateChange} value={''}>Reset date</button>
+                <input type="text" onChange={handleSearchTermChange}/>
+                <select defaultValue="" onChange={handleMethodChange}>
+                    <option value="">Wszystko</option>
+                    <option value="cash">Gotówka</option>
+                    <option value="card">Karta</option>
+                    <option value="online">Zapłacono on-line</option>
+                </select>
             </div>
             <table>
                 <thead>

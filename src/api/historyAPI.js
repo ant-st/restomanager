@@ -9,6 +9,7 @@ historyRouter.get('',(req, res) => {
         if (err) res.status(500).send(err);
         else res.status(200).json({history: rows});
     });
+
 });
 
 historyRouter.post('',(req, res) => {
@@ -17,7 +18,7 @@ historyRouter.post('',(req, res) => {
         'VALUES ($name, $type, $date, $order_time, $closing_time, $price, $payment)', {
             $name: newItem.name,
             $type: newItem.type,
-            $date: new Date().toLocaleDateString(),
+            $date: new Date().toLocaleDateString('en-GB'),
             $payment: newItem.payment,
             $price: newItem.price,
             $order_time: newItem['order_time'],
