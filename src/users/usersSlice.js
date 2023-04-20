@@ -1,5 +1,4 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {addMenu} from "../Menus/menusSlice";
 
 export const fetchUsers = createAsyncThunk( 'users/fetchUsers', () => {
     console.log('fetching users...');
@@ -54,9 +53,21 @@ const usersSlice = createSlice({
     initialState: {
         users: [],
         loggedUser: {},
-        status: 'ok'
+        status: 'ok',
+        message: ''
     },
-    reducers: {},
+    reducers: {
+        login: (state, action) => {
+            let newUser = state.users.find(user => {
+                    return user.name === action.payload.login && user.password === action.payload.password
+                });
+                if (newUser) state.loggedUser = newUser;
+                else state.loggedUser = {};
+        },
+        logout: (state) => {
+            state.loggedUser = {};
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchUsers.fulfilled, (state, action) => {
@@ -80,24 +91,24 @@ const usersSlice = createSlice({
             })
 
             .addCase(addUser.pending, (state) => {
-                return (state = {
+                return {
                     ...state,
                     status: "loading",
-                });
+                };
             })
             .addCase(addUser.fulfilled, (state, action) => {
-                return (state = {
+                return {
                     ...state,
                     users: [...state.users, action.payload],
                     status: "ok",
-                })
+                }
             })
 
             .addCase(toggleActiveUser.pending, (state) => {
-                return (state = {
+                return {
                     ...state,
                     status: "loading",
-                });
+                };
             })
             .addCase(toggleActiveUser.fulfilled, (state, action) => {
                 for (let i=0;i<state.users.length;i++) {
@@ -110,6 +121,15 @@ const usersSlice = createSlice({
 export const selectUsers = (state) => {
     return state.users.users;
 }
+
+export const selectLoggedUser = (state) => {
+    return state.users.loggedUser;
+}
+
+export const {
+    login,
+    logout
+} = usersSlice.actions;
 
 export default usersSlice.reducer;
 
