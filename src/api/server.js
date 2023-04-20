@@ -21,7 +21,7 @@ app.use('/api', apiRouter);
 
 app.get('/restart',(req, res, next) => {
         db.serialize(() => {
-
+            /*
             db.run('DROP TABLE IF EXISTS History');
             db.run('CREATE TABLE History (id INTEGER NOT NULL PRIMARY KEY,' +
                 'type TEXT NOT NULL,' +
@@ -34,6 +34,16 @@ app.get('/restart',(req, res, next) => {
                 'user INTEGER,' +
                 'driver INTEGER)');
 
+ */
+
+            db.run('DROP TABLE IF EXISTS Users');
+            db.run('CREATE TABLE Users (id INTEGER NOT NULL PRIMARY KEY,' +
+                'name TEXT NOT NULL,' +
+                'password TEXT NOT NULL,' +
+                'admin BOOLEAN NOT NULL,' +
+                'manager BOOLEAN NOT NULL,' +
+                'active BOOLEAN NOT NULL)');
+            db.run(`INSERT INTO Users (name, password, admin, manager, active) VALUES ('Admin', '1234', true, true, true)`);
 
 
             db.run('DROP TABLE IF EXISTS Menus');

@@ -17,6 +17,7 @@ import {useEffect} from "react";
 import {fetchMenus} from "../Menus/menusSlice";
 import {useDispatch} from "react-redux";
 import {fetchTables} from "../Tables/tablesSlice";
+import {fetchUsers} from "../users/usersSlice";
 
 
 const router = createBrowserRouter(
@@ -46,6 +47,7 @@ function App() {
     useEffect(() => {
         dispatch(fetchMenus());
         dispatch(fetchTables());
+        dispatch(fetchUsers());
     },[dispatch]);
 
   return (
