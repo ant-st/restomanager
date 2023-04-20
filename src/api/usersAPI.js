@@ -33,5 +33,14 @@ usersRouter.post('',(req, res) => {
     );
 });
 
+usersRouter.put('',(req, res) => {
+    let idToEdit = req.body.id;
+    db.run('UPDATE Users SET active = NOT active WHERE id = $id', {$id: idToEdit}, (err, row) => {
+        if (err) res.status(500).send("Updating failed!");
+        else res.status(204).send();
+    })
+});
+
+
 module.exports = usersRouter;
 

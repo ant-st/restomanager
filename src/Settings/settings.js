@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {addTable, deleteTable, selectTables} from "../Tables/tablesSlice";
 import {useState} from "react";
-import {addUser, selectUsers} from "../users/usersSlice";
+import {addUser, selectUsers, toggleActiveUser} from "../users/usersSlice";
 
 export const Settings = () => {
     let tables = useSelector(selectTables);
@@ -36,10 +36,12 @@ export const Settings = () => {
                 <td>{row.id}</td>
                 <td>{row.name}</td>
                 <td>{row.password}</td>
-                <td>{row.admin}</td>
-                <td>{row.manager}</td>
-                <td>{row.active}</td>
-                <td><input type='checkbox' defaultChecked={row.active}/> </td>
+                <td>{row.admin ? '1' : '0'}</td>
+                <td>{row.manager ? '1' : '0'}</td>
+                <td>{row.active ? '1' : '0'}</td>
+                {!row.admin && (
+                    <td><input type='checkbox' defaultChecked={row.active} onClick={() => dispatch(toggleActiveUser(row.id))}/></td>
+                    )}
             </tr>
         )
     }
@@ -99,7 +101,7 @@ export const Settings = () => {
                             <td></td>
                             <td><input defaultValue="Nowy user" onChange={handleUsernameChange}/></td>
                             <td><input type="password" defaultValue="Hasło" onChange={handlePassChange}/></td>
-                            <td><input type="checkbox" onChange={handleAdminChange}/></td>
+                            <td></td>
                             <td><input type="checkbox" onChange={handleManagerChange}/></td>
                             <td><input type="checkbox" defaultChecked={true} onChange={handleActiveChange}/></td>
                             <td><button onClick={submitNewUser}>Dodaj!</button></td>

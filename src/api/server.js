@@ -44,6 +44,7 @@ app.get('/restart',(req, res, next) => {
                 'manager BOOLEAN NOT NULL,' +
                 'active BOOLEAN NOT NULL)');
             db.run(`INSERT INTO Users (name, password, admin, manager, active) VALUES ('Admin', '1234', true, true, true)`);
+            db.run(`INSERT INTO Users (name, password, admin, manager, active) VALUES ('User', '4321', false, false, true)`);
 
 
             db.run('DROP TABLE IF EXISTS Menus');

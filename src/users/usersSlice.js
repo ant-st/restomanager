@@ -33,6 +33,22 @@ export const addUser = createAsyncThunk( 'users/addUser', (newUser) => {
     });
 });
 
+export const toggleActiveUser = createAsyncThunk('users/toggleActiveUser', (userID) => {
+    const fetchOptions = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id: userID})
+    };
+    return fetch('http://localhost:4000/api/users', fetchOptions).then(response => {
+        if (!response.ok) {
+            return new Promise(resolve => resolve(null));
+        }
+        return userID;
+        });
+})
+
 const usersSlice = createSlice({
     name: 'users',
     initialState: {
@@ -75,6 +91,18 @@ const usersSlice = createSlice({
                     users: [...state.users, action.payload],
                     status: "ok",
                 })
+            })
+
+            .addCase(toggleActiveUser.pending, (state) => {
+                return (state = {
+                    ...state,
+                    status: "loading",
+                });
+            })
+            .addCase(toggleActiveUser.fulfilled, (state, action) => {
+                for (let i=0;i<state.users.length;i++) {
+                    if (state.users[i].id === action.payload) state.users[i].active = !state.users[i].active;
+                }
             })
     }
 });
