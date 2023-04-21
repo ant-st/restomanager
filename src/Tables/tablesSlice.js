@@ -69,6 +69,7 @@ const tablesSlice = createSlice({
                 if (state.tables[i].id === Number(action.payload.id)) {
                     state.tables[i].order = action.payload.order;
                     state.tables[i].orderTime = action.payload.orderTime;
+                    state.tables[i].waiter = action.payload.waiter;
                     state.tables[i].isServed = true;
                     state.tables[i].isReady = false;
                 }
@@ -83,7 +84,8 @@ const tablesSlice = createSlice({
                         'order_time': state.tables[i].orderTime,
                         'closing_time': new Date().toLocaleTimeString(),
                         price: action.payload.price,
-                        payment: action.payload.payment
+                        payment: action.payload.payment,
+                        user: state.tables[i].waiter.id
                     }
                     const fetchOptions = {
                         method: 'POST',
@@ -97,6 +99,7 @@ const tablesSlice = createSlice({
                     state.tables[i].order = [];
                     state.tables[i].isServed = false;
                     state.tables[i].isReady = false;
+                    state.tables[i].waiter = {};
                 }
             }
         },
@@ -106,6 +109,7 @@ const tablesSlice = createSlice({
                     state.tables[i].order = [];
                     state.tables[i].isServed = false;
                     state.tables[i].isReady = false;
+                    state.tables[i].waiter = {};
                 }}
         },
         toggleIsReady: (state, action) => {
@@ -146,12 +150,12 @@ const tablesSlice = createSlice({
                 });
             })
             .addCase(addTable.fulfilled, (state, action) => {
-                console.log(action.payload);
                 let newTable = {
                     ...action.payload.table,
                     order: [],
                     isServed: false,
-                    isReady: false
+                    isReady: false,
+                    waiter: {}
 
                 }
                 return ({

@@ -19,6 +19,7 @@ export const fetchSales = createAsyncThunk( 'sales/fetchSales', () => {
                             price: sale.price,
                             orderTime: sale['order_time'],
                             closingTime: sale['closing_time'],
+                            user: sale.user
                         }
                     });
                 });

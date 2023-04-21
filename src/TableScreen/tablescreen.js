@@ -16,7 +16,7 @@ export const TableScreen = () => {
 
     let menus = useSelector(selectMenus);
     const tables = useSelector(selectTables);
-    const {active, manager} = useSelector(selectLoggedUser);
+    const {active, manager, id: userID, name: userName} = useSelector(selectLoggedUser);
 
     const [currentMenu, setCurrentMenu] = useState({});
     const [currentOrder, setCurrentOrder] = useState([]);
@@ -58,7 +58,7 @@ export const TableScreen = () => {
     const handleSubmitOrder = () => {
 
         if (Number(currentSum) !== 0) {
-            dispatch(submitOrder({id: id, order: currentOrder, orderTime: new Date().toLocaleTimeString()}));
+            dispatch(submitOrder({id: id, waiter: {id: userID, name: userName}, order: currentOrder, orderTime: new Date().toLocaleTimeString()}));
             navigate('/tables');
         }
 

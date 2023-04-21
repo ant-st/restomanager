@@ -12,6 +12,9 @@ const renderTable = (table) => {
         <NavLink to={String(table.id)} className={`table ${!table.isServed ? 'Empty' : table.isReady ? 'Ready' : 'Preparing'}`} key={table.name}>
             <p>{table.name}</p>
             <p>{!table.isServed ? 'Empty' : table.isReady ? 'Ready' : 'Preparing'}</p>
+            {table.waiter && (
+                <p>{table.waiter.name}</p>
+            )}
         </NavLink>
     )
 }

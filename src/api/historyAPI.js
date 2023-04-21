@@ -14,8 +14,8 @@ historyRouter.get('',(req, res) => {
 
 historyRouter.post('',(req, res) => {
     let newItem = req.body.history;
-    db.run('INSERT INTO History (name, type, date, order_time, closing_time, price, payment) ' +
-        'VALUES ($name, $type, $date, $order_time, $closing_time, $price, $payment)', {
+    db.run('INSERT INTO History (name, type, date, order_time, closing_time, price, payment, user) ' +
+        'VALUES ($name, $type, $date, $order_time, $closing_time, $price, $payment, $user)', {
             $name: newItem.name,
             $type: newItem.type,
             $date: new Date().toLocaleDateString('en-GB'),
@@ -23,6 +23,7 @@ historyRouter.post('',(req, res) => {
             $price: newItem.price,
             $order_time: newItem['order_time'],
             $closing_time: newItem['closing_time'],
+            $user: newItem.user
         }, function (err) {
             if (err) res.status(500).send("Inserting failed!");
             else {

@@ -69,6 +69,7 @@ export const Sales = () => {
                 <td>{row.closingTime}</td>
                 <td>{row.price}</td>
                 <td>{row.payment}</td>
+                <td>{row.user}</td>
             </tr>
         )
     }
@@ -118,6 +119,7 @@ export const Sales = () => {
                         <th>Godzina wydania</th>
                         <th>Kwota</th>
                         <th>Metoda</th>
+                        <th>Pracownik</th>
                     </tr>
                 </thead>
                 <tbody>
