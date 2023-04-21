@@ -1,10 +1,14 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchSales, selectFilteredSales, setSalesFilter} from "./salesSlice";
+import {selectLoggedUser} from "../users/usersSlice";
+import {AccessDenied} from "../users/AccessDenied";
 
 export const Sales = () => {
     const dispatch = useDispatch();
     const sales = useSelector(selectFilteredSales);
+    const {manager} = useSelector(selectLoggedUser);
+
     const [total, setTotal] = useState(0);
     const [filter, setFilter] = useState({
         delis: true,
@@ -71,7 +75,7 @@ export const Sales = () => {
 
 
 
-    return (
+    if (manager) return (
         <div id="salesTable">
             Sales
             <div id="filters">
@@ -123,4 +127,5 @@ export const Sales = () => {
             <h3>Total: {total}</h3>
         </div>
     )
+    else return <AccessDenied/>
 }

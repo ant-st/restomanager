@@ -5,6 +5,8 @@ import {selectMenus} from "../Menus/menusSlice";
 import {useEffect, useState} from "react";
 import {finalizeOrder, selectTables, submitOrder} from "../Tables/tablesSlice";
 import {Link} from "react-router-dom";
+import {selectLoggedUser} from "../users/usersSlice";
+import {AccessDenied} from "../users/AccessDenied";
 
 export const TableScreen = () => {
     const dispatch = useDispatch();
@@ -14,6 +16,7 @@ export const TableScreen = () => {
 
     let menus = useSelector(selectMenus);
     const tables = useSelector(selectTables);
+    const {active} = useSelector(selectLoggedUser);
 
     const [currentMenu, setCurrentMenu] = useState({});
     const [currentOrder, setCurrentOrder] = useState([]);
@@ -114,7 +117,7 @@ export const TableScreen = () => {
         setCurrentPay(target.value)
     }
 
-    return (
+    if (active) return (
         <div id="tableScreen">
             <section id="tableName">
                 <p>Stół - ID: {id}</p>
@@ -142,4 +145,5 @@ export const TableScreen = () => {
             </section>
         </div>
     )
+    else return <AccessDenied/>
 }

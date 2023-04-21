@@ -2,6 +2,8 @@ import './tables.css'
 import {NavLink} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {selectTables} from "./tablesSlice";
+import {selectLoggedUser} from "../users/usersSlice";
+import {AccessDenied} from "../users/AccessDenied";
 
 // const tablesArray = [{id: 1, name: 'Stol 1'}, {id: 2, name: 'Stolik 2'}, {id: 3, name: 'Kominek'}]
 
@@ -16,10 +18,12 @@ const renderTable = (table) => {
 
 export const Tables = () => {
     const tables = useSelector(selectTables);
+    const {active} = useSelector(selectLoggedUser);
 
-    return (
+    if (active) return (
         <div id="tablesGallery">
             {tables.map(renderTable)}
         </div>
     )
+    else return <AccessDenied/>
 }

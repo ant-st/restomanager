@@ -3,10 +3,13 @@ import {selectTables, toggleIsReady} from "../Tables/tablesSlice";
 
 import './kitchen.css'
 import {selectSentOrders, toggleReady} from "../Delivery/deliSlice";
+import {selectLoggedUser} from "../users/usersSlice";
+import {AccessDenied} from "../users/AccessDenied";
 
 export const Kitchen = () => {
     const tables = useSelector(selectTables);
     const deliOrders = useSelector(selectSentOrders);
+    const {active} = useSelector(selectLoggedUser);
     const dispatch = useDispatch();
 
     const renderOrder = (order) => {
@@ -42,7 +45,7 @@ export const Kitchen = () => {
         }
     }
 
-    return (
+    if (active) return (
         <div id="kitchen">
             <h2>Oczekujące zamówienia:</h2>
             {tables.map(renderTable)}
@@ -50,4 +53,5 @@ export const Kitchen = () => {
             {deliOrders.map(renderDelivery)}
         </div>
     )
+    else return <AccessDenied/>
 }

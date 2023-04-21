@@ -1,11 +1,13 @@
 import {useDispatch, useSelector} from "react-redux";
 import {addTable, deleteTable, selectTables} from "../Tables/tablesSlice";
 import {useState} from "react";
-import {addUser, selectUsers, toggleActiveUser} from "../users/usersSlice";
+import {addUser, selectLoggedUser, selectUsers, toggleActiveUser} from "../users/usersSlice";
+import {AccessDenied} from "../users/AccessDenied";
 
 export const Settings = () => {
     let tables = useSelector(selectTables);
     const users = useSelector(selectUsers);
+    const {admin} = useSelector(selectLoggedUser);
 
     const dispatch = useDispatch();
 
@@ -69,7 +71,7 @@ export const Settings = () => {
         dispatch(addUser(newUser));
     }
 
-    return (
+    if (admin) return (
         <div id="settings">
             <section id="tableEditor">
                 <h2>Edycja stolików:</h2>
@@ -111,4 +113,5 @@ export const Settings = () => {
             </section>
         </div>
     )
+    else return <AccessDenied/>
 }

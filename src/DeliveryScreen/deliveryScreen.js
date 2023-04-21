@@ -6,12 +6,15 @@ import {Link} from "react-router-dom";
 import {addOrder} from "../Delivery/deliSlice";
 
 import './deliveryScreen.css'
+import {selectLoggedUser} from "../users/usersSlice";
+import {AccessDenied} from "../users/AccessDenied";
 
 export const DeliveryScreen = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     let menus = useSelector(selectMenus);
+    const {active} = useSelector(selectLoggedUser);
 
     const [currentMenu, setCurrentMenu] = useState({});
     const [currentOrder, setCurrentOrder] = useState([]);
@@ -105,7 +108,7 @@ export const DeliveryScreen = () => {
         )
     }
 
-    return (
+    if (active) return (
         <div id="deliScreen">
             <section id="deliName">
                 <p>Nowa dostawa</p>
@@ -139,4 +142,5 @@ export const DeliveryScreen = () => {
             </section>
         </div>
     )
+    else return <AccessDenied/>
 }

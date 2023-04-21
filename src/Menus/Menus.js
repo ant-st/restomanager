@@ -5,6 +5,8 @@ import {NavLink, Outlet} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {addMenu, deleteMenu, selectMenus, selectStatus} from "./menusSlice";
 import {useState} from "react";
+import {selectLoggedUser} from "../users/usersSlice";
+import {AccessDenied} from "../users/AccessDenied";
 
 // const menusArray = [{id: 1, name: 'Menu tradycyjne'}, {id: 2, name: 'Menu sezonowe'}];
 
@@ -13,6 +15,7 @@ import {useState} from "react";
 export const Menus = () => {
     const menus = useSelector(selectMenus);
     const status = useSelector(selectStatus);
+    const {admin} = useSelector(selectLoggedUser);
     const dispatch = useDispatch();
 
     const [newMenu, setNewMenu] = useState('');
@@ -34,7 +37,7 @@ export const Menus = () => {
         dispatch(addMenu(newMenu));
     }
 
-    return (
+    if (admin) return (
         <section id="menus">
             <div>
                 <p>New menu:</p>
@@ -51,4 +54,5 @@ export const Menus = () => {
             </div>
         </section>
     )
+    else return <AccessDenied/>
 }

@@ -5,8 +5,7 @@ import {selectLoggedUser} from "../users/usersSlice";
 
 export const Homepage = () => {
         const {admin, manager, active} = useSelector(selectLoggedUser);
-        console.log(admin, manager, active);
-    return (
+        return (
         <div id="homepage">
             <NavLink to={active ? 'tables' : '/'} className={`menuContainer ` + (active ? '' : 'disabled')}>
                     <img src={require('./menuImg.png')} alt="menu icon"/>
