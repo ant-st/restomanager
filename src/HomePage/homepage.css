@@ -19,6 +19,10 @@
     border-radius: 10%;
 }
 
+.disabled {
+    background-color: lightgray;
+}
+
 .menuContainer img {
     height: 60%;
     margin: 20px;
