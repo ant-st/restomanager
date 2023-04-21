@@ -3,7 +3,7 @@ import './tablescreen.css'
 import {useDispatch, useSelector} from "react-redux";
 import {selectMenus} from "../Menus/menusSlice";
 import {useEffect, useState} from "react";
-import {finalizeOrder, selectTables, submitOrder} from "../Tables/tablesSlice";
+import {cancelOrder, finalizeOrder, selectTables, submitOrder} from "../Tables/tablesSlice";
 import {Link} from "react-router-dom";
 import {selectLoggedUser} from "../users/usersSlice";
 import {AccessDenied} from "../users/AccessDenied";
@@ -16,7 +16,7 @@ export const TableScreen = () => {
 
     let menus = useSelector(selectMenus);
     const tables = useSelector(selectTables);
-    const {active} = useSelector(selectLoggedUser);
+    const {active, manager} = useSelector(selectLoggedUser);
 
     const [currentMenu, setCurrentMenu] = useState({});
     const [currentOrder, setCurrentOrder] = useState([]);
@@ -74,6 +74,10 @@ export const TableScreen = () => {
             }));
             navigate('/tables');
         }
+    }
+
+    const handleDeleteOrder = () => {
+        dispatch(cancelOrder({id: id}));
     }
 
     const renderMenuButtons = (menu) => {
@@ -140,6 +144,7 @@ export const TableScreen = () => {
                     <option value="card">Karta</option>
                     <option value="online">Zapłacono on-line</option>
                 </select>
+                <button disabled={!manager} onClick={handleDeleteOrder}>Cancel order</button>
                 <button onClick={handleSubmitOrder}>Submit order</button>
                 <button onClick={handleFinalizeOrder}>Finalize order</button>
             </section>

@@ -29,7 +29,7 @@ export const Root = () => {
                 <button onClick={handleRestart}>RESTART</button>
                 <div id="loggingScreen">
                     {loggedUser.name ?
-                        <p>Logged user: {loggedUser.name} <button onClick={handleLogout}>Logout</button></p>
+                        <p>Logged user: {loggedUser.id}: {loggedUser.name} <button onClick={handleLogout}>Logout</button></p>
                         :
                         (
                             <div>

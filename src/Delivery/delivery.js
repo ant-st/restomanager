@@ -8,7 +8,7 @@ import {AccessDenied} from "../users/AccessDenied";
 export const Delivery = () => {
     const delis = useSelector(selectOrders);
     const dispatch = useDispatch();
-    const {active} = useSelector(selectLoggedUser);
+    const {active, manager} = useSelector(selectLoggedUser);
 
     const renderDelis = (deli) => {
         let status;
@@ -37,7 +37,7 @@ export const Delivery = () => {
                     <Link to='/delivery/new'><button>New delivery</button></Link>
                     <button onClick = {() => dispatch(sendToKitchen())}>Send to kitchen</button>
                     <button onClick = {() => dispatch(sendDriver())}>Send Driver</button>
-                    <button onClick = {() => dispatch(deleteOrder())}>Delete</button>
+                    <button disabled={!manager} onClick = {() => dispatch(deleteOrder())}>Delete</button>
                 </div>
                 <div id="deliList">
                     {delis.map(renderDelis)}

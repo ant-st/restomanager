@@ -100,6 +100,14 @@ const tablesSlice = createSlice({
                 }
             }
         },
+        cancelOrder: (state,action) => {
+            for (let i = 0; i < state.tables.length; i++) {
+                if (state.tables[i].id === Number(action.payload.id)) {
+                    state.tables[i].order = [];
+                    state.tables[i].isServed = false;
+                    state.tables[i].isReady = false;
+                }}
+        },
         toggleIsReady: (state, action) => {
             for (let i = 0; i < state.tables.length; i++) {
                 if (state.tables[i].id === Number(action.payload)) {
@@ -178,7 +186,8 @@ export const selectTables = (state) => {
 export const {
     submitOrder,
     finalizeOrder,
-    toggleIsReady
+    toggleIsReady,
+    cancelOrder
 } = tablesSlice.actions;
 
 export default tablesSlice.reducer;
