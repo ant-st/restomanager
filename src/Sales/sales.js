@@ -15,7 +15,8 @@ export const Sales = () => {
         tables: true,
         date: null,
         searchTerm: '',
-        payment: ''
+        payment: '',
+        user: null
     });
 
     useEffect(() => {
@@ -31,30 +32,43 @@ export const Sales = () => {
     },[filter, dispatch]);
 
     const handleDateChange = ({target}) => {
-        setFilter(prev => {
-            return {
-                ...prev,
+        setFilter({
+                ...filter,
                 date: target.value ? new Date(target.value).toLocaleDateString('en-GB') : null,
             }
-        });
+        );
     }
 
     const handleSearchTermChange = ({target}) => {
-        setFilter(prev => {
-            return {
-                ...prev,
+        setFilter({
+                ...filter,
                 searchTerm: target.value
             }
-        });
+        );
     }
 
     const handleMethodChange = ({target}) => {
-        setFilter(prev => {
-            return {
-                ...prev,
+        setFilter({
+                ...filter,
                 payment: target.value
-            }
+            });
+    }
+
+    const handleUserChange = ({target}) => {
+        setFilter({
+            ...filter,
+            user: target.value
         });
+    }
+
+    const handleReset = () => {
+        setFilter({
+                date: null,
+                searchTerm: '',
+                payment: '',
+                user: null
+            }
+        )
     }
 
 
@@ -81,32 +95,31 @@ export const Sales = () => {
             Sales
             <div id="filters">
                 <label>
-                    <input type="checkbox" defaultChecked={true} onChange={() => {setFilter((prev) => {
-                                return {
-                                ...prev,
-                                delis: !prev.delis
+                    <input type="checkbox" defaultChecked={true} onChange={() => {setFilter({
+                                ...filter,
+                                delis: !filter.delis
                                 }
-                           })}}/>
+                           )}}/>
                     Dostawy
                 </label>
                 <label>
-                    <input type="checkbox" defaultChecked={true} onChange={() => {setFilter((prev) => {
-                            return {
-                                ...prev,
-                                tables: !prev.tables
+                    <input type="checkbox" defaultChecked={true} onChange={() => {setFilter({
+                                ...filter,
+                                tables: !filter.tables
                             }
-                        })}}/>
+                        )}}/>
                     W lokalu
                 </label>
                 <input type="date" onChange={handleDateChange} defaultValue={null}/>
-                <button onClick={handleDateChange} value={''}>Reset date</button>
-                <input type="text" onChange={handleSearchTermChange}/>
+                <input type="text" onChange={handleSearchTermChange} defaultValue={'Filtruj wg telefonu/stolika'}/>
                 <select defaultValue="" onChange={handleMethodChange}>
                     <option value="">Wszystko</option>
                     <option value="cash">Gotówka</option>
                     <option value="card">Karta</option>
                     <option value="online">Zapłacono on-line</option>
                 </select>
+                <input type="number" onChange={handleUserChange} min={0}/>
+                <button onClick={handleReset} value={''}>Reset filters</button>
             </div>
             <table>
                 <thead>

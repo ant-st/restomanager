@@ -43,6 +43,7 @@ const deliSlice = createSlice({
                         'closing_time': new Date().toLocaleTimeString(),
                         price: element.total,
                         payment: element.paymentMet,
+                        user: element.waiter.id
                     }
                     console.log(objectToSend);
                     const fetchOptions = {

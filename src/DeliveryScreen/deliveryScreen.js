@@ -14,7 +14,7 @@ export const DeliveryScreen = () => {
     const navigate = useNavigate();
 
     let menus = useSelector(selectMenus);
-    const {active} = useSelector(selectLoggedUser);
+    const {active, id: userID, name: userName} = useSelector(selectLoggedUser);
 
     const [currentMenu, setCurrentMenu] = useState({});
     const [currentOrder, setCurrentOrder] = useState([]);
@@ -61,7 +61,8 @@ export const DeliveryScreen = () => {
                 isChecked: false,
                 paymentMet: currentMethod,
                 orderTime: new Date().toLocaleTimeString(),
-                closingTime: null
+                closingTime: null,
+                waiter: {id: userID, name: userName}
             }));
             navigate('/delivery');
         }

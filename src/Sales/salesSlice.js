@@ -36,7 +36,8 @@ const salesSlice = createSlice({
                 tables: true,
                 date: null,
                 searchTerm: '',
-                payment: ''
+                payment: '',
+                user: 0
             },
             status: 'loading'
         }
@@ -88,6 +89,8 @@ export const selectFilteredSales = (state) => {
             (element.name.toLowerCase().includes(state.sales['filter'].searchTerm.toLowerCase()))
             &&
             (element.payment.includes(state.sales['filter'].payment))
+            &&
+            (!state.sales['filter'].user ||  Number(state.sales['filter'].user) === Number(element.user))
         );
     })
 }
