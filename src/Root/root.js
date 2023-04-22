@@ -1,12 +1,13 @@
 import {Link, Outlet} from "react-router-dom";
 import './root.css'
 import {useDispatch, useSelector} from "react-redux";
-import {login, logout, selectLoggedUser} from "../users/usersSlice";
+import {login, logout, selectLoggedUser, selectMessage} from "../users/usersSlice";
 import {useState} from "react";
 
 export const Root = () => {
     const dispatch = useDispatch();
     const loggedUser = useSelector(selectLoggedUser);
+    const errorMessage = useSelector(selectMessage)
     const [loginData, setLoginData] = useState({login: '', password: ''})
     const handleRestart = () => {
         // eslint-disable-next-line no-restricted-globals
@@ -45,6 +46,9 @@ export const Root = () => {
                             </div>
                         )
                     }
+                </div>
+                <div>
+                    <p>{errorMessage}</p>
                 </div>
 
             </header>

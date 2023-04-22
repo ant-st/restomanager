@@ -61,11 +61,19 @@ const usersSlice = createSlice({
             let newUser = state.users.find(user => {
                     return user.name === action.payload.login && user.password === action.payload.password
                 });
-                if (newUser) state.loggedUser = newUser;
-                else state.loggedUser = {};
+                if (newUser) {
+                    state.loggedUser = newUser;
+                    if (newUser.active) state.message = null;
+                    else state.message = 'Twoje konto nie jest aktywne! Skontaktuj się z administartorem!';
+                }
+                else {
+                    state.loggedUser = {};
+                    state.message = 'Nieprawidłowa nazwa użytkownika lub hasło!';
+                }
         },
         logout: (state) => {
             state.loggedUser = {};
+            state.message = null;
         }
     },
     extraReducers: (builder) => {
@@ -124,6 +132,10 @@ export const selectUsers = (state) => {
 
 export const selectLoggedUser = (state) => {
     return state.users.loggedUser;
+}
+
+export const selectMessage = (state) => {
+    return state.users.message;
 }
 
 export const {
