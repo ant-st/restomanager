@@ -16,12 +16,13 @@ export const Sales = () => {
         date: null,
         searchTerm: '',
         payment: '',
-        user: null
+        user: null,
+        driver: null
     });
 
     useEffect(() => {
         dispatch(fetchSales());
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         setTotal(sales.reduce((sum, row) => sum + Number(row.price), 0));
@@ -61,12 +62,21 @@ export const Sales = () => {
         });
     }
 
+    const handleDriverChange = ({target}) => {
+        setFilter({
+            ...filter,
+            driver: target.value
+        });
+    }
+
     const handleReset = () => {
         setFilter({
+                ...filter,
                 date: null,
                 searchTerm: '',
                 payment: '',
-                user: null
+                user: null,
+                driver: null
             }
         )
     }
@@ -84,6 +94,7 @@ export const Sales = () => {
                 <td>{row.price}</td>
                 <td>{row.payment}</td>
                 <td>{row.user}</td>
+                <td>{row.driver}</td>
             </tr>
         )
     }
@@ -111,14 +122,15 @@ export const Sales = () => {
                     W lokalu
                 </label>
                 <input type="date" onChange={handleDateChange} defaultValue={null}/>
-                <input type="text" onChange={handleSearchTermChange} defaultValue={'Filtruj wg telefonu/stolika'}/>
-                <select defaultValue="" onChange={handleMethodChange}>
+                <input type="text" onChange={handleSearchTermChange} placeholder={'Filtruj wg telefonu/stolika'}/>
+                <select defaultValue="" onChange={handleMethodChange} placeholder={'Metoda płatności'}>
                     <option value="">Wszystko</option>
                     <option value="cash">Gotówka</option>
                     <option value="card">Karta</option>
                     <option value="online">Zapłacono on-line</option>
                 </select>
-                <input type="number" onChange={handleUserChange} min={0}/>
+                <input type="number" onChange={handleUserChange} min={0} placeholder={'ID Pracownika'}/>
+                <input type="number" onChange={handleDriverChange} min={0} placeholder={'ID dostawcy'}/>
                 <button onClick={handleReset} value={''}>Reset filters</button>
             </div>
             <table>
@@ -133,6 +145,7 @@ export const Sales = () => {
                         <th>Kwota</th>
                         <th>Metoda</th>
                         <th>Pracownik</th>
+                        <th>Dostawca</th>
                     </tr>
                 </thead>
                 <tbody>

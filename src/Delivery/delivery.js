@@ -4,11 +4,17 @@ import {Link} from "react-router-dom";
 import './delivery.css'
 import {selectLoggedUser} from "../users/usersSlice";
 import {AccessDenied} from "../users/AccessDenied";
+import {useState} from "react";
 
 export const Delivery = () => {
     const delis = useSelector(selectOrders);
     const dispatch = useDispatch();
     const {active, manager} = useSelector(selectLoggedUser);
+    const [driver, setDriver] = useState(null);
+
+    const handleDriverChange = ({target}) => {
+        setDriver(target.value);
+    }
 
     const renderDelis = (deli) => {
         let status;
@@ -36,8 +42,10 @@ export const Delivery = () => {
                 <div id="delicreator">
                     <Link to='/delivery/new'><button>New delivery</button></Link>
                     <button onClick = {() => dispatch(sendToKitchen())}>Send to kitchen</button>
-                    <button onClick = {() => dispatch(sendDriver())}>Send Driver</button>
+                    <input type="number" onChange={handleDriverChange} min={1}/>
+                    <button disabled={!driver} onClick = {() => dispatch(sendDriver(driver))}>Send Driver</button>
                     <button disabled={!manager} onClick = {() => dispatch(deleteOrder())}>Delete</button>
+
                 </div>
                 <div id="deliList">
                     {delis.map(renderDelis)}

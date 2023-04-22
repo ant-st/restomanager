@@ -32,7 +32,7 @@ const deliSlice = createSlice({
         deleteOrder: (state) => {
             return state.filter((element) => !element.isChecked);
         },
-        sendDriver: (state) => {
+        sendDriver: (state, action) => {
             //tbc
             state.forEach(element => {
                 if (element.isChecked && element.isReady) {
@@ -43,7 +43,8 @@ const deliSlice = createSlice({
                         'closing_time': new Date().toLocaleTimeString(),
                         price: element.total,
                         payment: element.paymentMet,
-                        user: element.waiter.id
+                        user: element.waiter.id,
+                        driver: action.payload
                     }
                     console.log(objectToSend);
                     const fetchOptions = {

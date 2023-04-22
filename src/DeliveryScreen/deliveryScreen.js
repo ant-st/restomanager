@@ -62,7 +62,8 @@ export const DeliveryScreen = () => {
                 paymentMet: currentMethod,
                 orderTime: new Date().toLocaleTimeString(),
                 closingTime: null,
-                waiter: {id: userID, name: userName}
+                waiter: {id: userID, name: userName},
+
             }));
             navigate('/delivery');
         }

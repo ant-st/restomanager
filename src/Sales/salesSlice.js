@@ -19,7 +19,8 @@ export const fetchSales = createAsyncThunk( 'sales/fetchSales', () => {
                             price: sale.price,
                             orderTime: sale['order_time'],
                             closingTime: sale['closing_time'],
-                            user: sale.user
+                            user: sale.user,
+                            driver: sale.driver
                         }
                     });
                 });
@@ -37,7 +38,8 @@ const salesSlice = createSlice({
                 date: null,
                 searchTerm: '',
                 payment: '',
-                user: 0
+                user: 0,
+                driver: 0,
             },
             status: 'loading'
         }
@@ -91,6 +93,8 @@ export const selectFilteredSales = (state) => {
             (element.payment.includes(state.sales['filter'].payment))
             &&
             (!state.sales['filter'].user ||  Number(state.sales['filter'].user) === Number(element.user))
+            &&
+            (!state.sales['filter'].driver ||  Number(state.sales['filter'].driver) === Number(element.driver))
         );
     })
 }
