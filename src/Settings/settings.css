@@ -1,0 +1,8 @@
+.passwordCell span {
+    display: none;
+}
+
+.passwordCell:hover > span {
+    display: inline;
+}
+

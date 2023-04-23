@@ -6,4 +6,9 @@ body, html, #root, .App {
 .App {
   text-align: center;
   overflow: hidden;
+  background-color: #BAC5D2;
+}
+
+a {
+  text-decoration: none;
 }

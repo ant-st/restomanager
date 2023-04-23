@@ -7,15 +7,16 @@ import {useState} from "react";
 export const Root = () => {
     const dispatch = useDispatch();
     const loggedUser = useSelector(selectLoggedUser);
-    const errorMessage = useSelector(selectMessage)
-    const [loginData, setLoginData] = useState({login: '', password: ''})
-    const handleRestart = () => {
-        // eslint-disable-next-line no-restricted-globals
-        fetch('http://localhost:4000/restart').then(location.reload());
-    }
+    const errorMessage = useSelector(selectMessage);
+    const [loginData, setLoginData] = useState({login: '', password: ''});
+    const [activeAnimation, setActiveAnimation] = useState(false);
+
+
 
     const handleLogin = () => {
         dispatch(login(loginData));
+        setActiveAnimation(true);
+        setTimeout(() => setActiveAnimation(false), 5000);
     }
 
     const handleLogout = () => {
@@ -26,28 +27,31 @@ export const Root = () => {
     return (
         <div className="App">
             <header>
-                <Link to="/"><h1>resto_manager</h1></Link>
-                <button onClick={handleRestart}>RESTART</button>
-                <div id="loggingScreen">
+                <Link to="/"><h1><span>Resto</span> Manager</h1></Link>
                     {loggedUser.name ?
-                        <p>Logged user: {loggedUser.id}: {loggedUser.name} <button onClick={handleLogout}>Logout</button></p>
+                        (
+                            <div id="loggingScreen">
+                                <p>Witaj, {loggedUser.name}!</p>
+                                <p>Twoje ID to {loggedUser.id}</p>
+                                <button onClick={handleLogout}>Wyloguj</button>
+                            </div>
+                        )
                         :
                         (
-                            <div>
+                            <div id="loggingScreen">
                                 <label>
-                                    Użytkownik:
+                                    <p>Użytkownik:</p>
                                     <input onChange = {({target}) => {setLoginData({...loginData, login: target.value})}}/>
                                 </label>
                                 <label>
-                                    Hasło:
+                                    <p>Hasło:</p>
                                     <input onChange = {({target}) => {setLoginData({...loginData, password: target.value})}} type="password"/>
                                 </label>
-                                <button onClick={handleLogin}>Login</button>
+                                <button onClick={handleLogin}>Zaloguj!</button>
                             </div>
                         )
                     }
-                </div>
-                <div>
+                <div id="errorMessage" className={activeAnimation ? "animate" : undefined}>
                     <p>{errorMessage}</p>
                 </div>
 

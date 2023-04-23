@@ -1,13 +1,104 @@
 header {
-    background-color: lightcoral;
+    background-color: #537797;
+    font-family: Cinzel, serif;
+    height: 140px;
 }
 
 h1 {
+    box-sizing: border-box;
     margin: 0 auto;
-    padding: 15px;
+    padding: 30px 10px;
+    color: #E3CC66;
+    font-size: 50px;
+    transition: color 0.3s linear;
+}
+h1 span {
+    color: #96894B;
+    transition: color 0.3s linear;
+}
+h1:hover span {
+    color: #E3CC66;
+}
+h1:hover {
+    color: #96894B;
 }
 
 .content {
     height: 100%;
     width: 100%;
+}
+
+#loggingScreen {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    height: 140px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    font-size: 14px;
+    justify-content: space-evenly;
+    color: #E3CC66;
+}
+
+header label {
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+header input {
+    width: 50%;
+    margin: 5px;
+    background: none;
+    border: solid 2px #96894B;
+    border-radius: 10px;
+    font-family: Cinzel, serif;
+    color: #E3CC66;
+    transition: border 0.3s linear;
+}
+
+header input:focus {
+    border-color: #E3CC66;
+}
+
+header button {
+    border: solid 2px #96894B;
+    border-radius: 10px;
+    background: none;
+    color: #E3CC66;
+    transition: border 0.3s linear;
+}
+
+header button:hover {
+    border-color: #E3CC66;
+}
+
+#errorMessage {
+    position: absolute;
+    top: 90px;
+
+    box-sizing: border-box;
+    margin: 0;
+    padding: 10px;
+    opacity: 0;
+    height: 50px;
+    width: 0;
+
+    color: #660000;
+    font-family: Raleway, serif;
+    font-size: 20px;
+    transition: opacity linear 0.5s, width linear 0.8s;
+    overflow: hidden;
+    border-bottom: 3px solid red;
+}
+
+#errorMessage.animate {
+    width: 100%;
+    opacity: 1;
+}
+
+#errorMessage p {
+    margin: 0 auto;
 }

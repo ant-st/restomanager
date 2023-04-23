@@ -3,6 +3,7 @@ import {addTable, deleteTable, selectTables} from "../Tables/tablesSlice";
 import {useState} from "react";
 import {addUser, selectLoggedUser, selectUsers, toggleActiveUser} from "../users/usersSlice";
 import {AccessDenied} from "../users/AccessDenied";
+import './settings.css'
 
 export const Settings = () => {
     let tables = useSelector(selectTables);
@@ -37,7 +38,7 @@ export const Settings = () => {
             <tr key = {'row ' + row.id}>
                 <td>{row.id}</td>
                 <td>{row.name}</td>
-                <td>{row.password}</td>
+                <td className="passwordCell"><span>{row.password}</span></td>
                 <td>{row.admin ? '1' : '0'}</td>
                 <td>{row.manager ? '1' : '0'}</td>
                 <td>{row.active ? '1' : '0'}</td>
@@ -56,9 +57,6 @@ export const Settings = () => {
         setNewUser({...newUser, password: target.value});
     }
 
-    const handleAdminChange = () => {
-        setNewUser({...newUser, admin: !newUser.admin});
-    }
 
     const handleManagerChange = () => {
         setNewUser({...newUser, manager: !newUser.manager});
@@ -71,8 +69,14 @@ export const Settings = () => {
         dispatch(addUser(newUser));
     }
 
+    const handleRestart = () => {
+        // eslint-disable-next-line no-restricted-globals
+        fetch('http://localhost:4000/restart').then(location.reload());
+    }
+
     if (admin) return (
         <div id="settings">
+            <p>Tylko w wersji próbnej - <button onClick={handleRestart}>RESTART</button></p>
             <section id="tableEditor">
                 <h2>Edycja stolików:</h2>
                 <ol id="tablesList">
