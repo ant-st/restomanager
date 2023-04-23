@@ -1,6 +1,7 @@
 body, html, #root, .App {
   height: 100%;
   width: 100%;
+  font-family: Raleway, serif;
 }
 
 .App {

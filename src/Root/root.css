@@ -87,14 +87,20 @@ header button:hover {
     width: 0;
 
     color: #660000;
-    font-family: Raleway, serif;
     font-size: 20px;
     transition: opacity linear 0.5s, width linear 0.8s;
     overflow: hidden;
-    border-bottom: 3px solid red;
+
 }
 
 #errorMessage.animate {
+    border-bottom: 3px solid red;
+    width: 100%;
+    opacity: 1;
+}
+
+#errorMessage.loggedIn {
+    border-bottom: 3px solid lawngreen;
     width: 100%;
     opacity: 1;
 }

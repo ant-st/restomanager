@@ -51,7 +51,7 @@ export const Root = () => {
                             </div>
                         )
                     }
-                <div id="errorMessage" className={activeAnimation ? "animate" : undefined}>
+                <div id="errorMessage" className={activeAnimation ? (errorMessage ? "animate" : "loggedIn") : undefined}>
                     <p>{errorMessage}</p>
                 </div>
 
