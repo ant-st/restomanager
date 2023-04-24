@@ -10,11 +10,13 @@ import {AccessDenied} from "../users/AccessDenied";
 const renderTable = (table) => {
     return (
         <NavLink to={String(table.id)} className={`table ${!table.isServed ? 'Empty' : table.isReady ? 'Ready' : 'Preparing'}`} key={table.name}>
-            <p>{table.name}</p>
-            <p>{!table.isServed ? 'Empty' : table.isReady ? 'Ready' : 'Preparing'}</p>
-            {table.waiter && (
-                <p>{table.waiter.name}</p>
-            )}
+            <h3>{table.name}</h3>
+            <div>
+                {table.waiter && (
+                    <p className="tableWaiter">{table.waiter.name}</p>
+                )}
+                <p className="tableStatus">{!table.isServed ? 'Wolny' : table.isReady ? 'Gotowe' : 'W przygotowaniu'}</p>
+            </div>
         </NavLink>
     )
 }

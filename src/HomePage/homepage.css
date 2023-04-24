@@ -8,7 +8,7 @@
 
 #homepage a {
     text-decoration: none;
-    color: #E3CC66;
+    color: black;
     font-size: 22px;
     font-weight: 550;
 }
@@ -19,14 +19,19 @@
     margin: 10px;
     background-color: #537797;
     border-radius: 10%;
+    box-shadow: 0 0 10px 3px rgba(227, 204, 102, 0.7);
     transition: box-shadow 0.2s linear, background-color 0.2s linear, color 0.2s linear;
 }
 
 .menuContainer:hover {
-    box-shadow: 8px 8px 24px 0 rgba(66, 68, 90, 1);;
+    /*
+    box-shadow: 8px 8px 24px 0 rgba(66, 68, 90, 1);
+     */
+    box-shadow: 0 0 0;
 }
 
 #homepage a.disabled {
+    box-shadow: 0 0 0;
     background-color: lightgray;
     color: #537797;
 }

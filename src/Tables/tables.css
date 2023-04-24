@@ -6,30 +6,55 @@
 }
 
 .table {
-    width: 15%;
+    width: 20%;
     height: 150px;
     margin: 20px;
-    background-color: lightcoral;
+    font-size: 25px;
+    background-color: #537797;
 
-    border-radius: 10%;
+    border-radius: 30px;
+    color: #E3CC66;
+    box-shadow: 8px 8px 24px 0 rgba(66, 68, 90, 1);
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+
+    transition: box-shadow 0.2s linear;
+
+    overflow: hidden;
 }
 
-.table p {
-   margin: auto;
+.table h3 {
+    margin: 10px auto;
+    font-weight: 450;
 }
 
-.Empty {
-    border: 5px solid grey;
+.tableStatus {
+    margin: 0 auto;
+    padding: 3px;
+    color: #BAC5D2;
 }
 
-.Preparing {
-    border: 5px solid blue;
+.tableWaiter {
+    margin: 0 auto;
+    padding: 5px;
+    color: #BAC5D2;
+    font-style: italic;
 }
 
-.Ready {
-    border: 5px solid green;
+.table:hover {
+    box-shadow: 8px 8px 5px 0 rgba(66, 68, 90, 1);
+}
+
+.Empty .tableStatus {
+    background-color: grey;
+}
+
+.Preparing .tableStatus {
+    background-color: blue;
+}
+
+.Ready .tableStatus {
+    background-color: green;
 }
