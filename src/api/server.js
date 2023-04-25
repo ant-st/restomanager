@@ -19,7 +19,7 @@ app.use(cors());
 //API:
 app.use('/api', apiRouter);
 
-app.get('/restart',(req, res, next) => {
+app.get('/restart',() => {
         db.serialize(() => {
             /*
             db.run('DROP TABLE IF EXISTS History');

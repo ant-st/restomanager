@@ -104,56 +104,59 @@ export const Sales = () => {
 
     if (manager) return (
         <div id="salesTable">
-            Sales
             <div id="filters">
-                <label>
-                    <input type="checkbox" defaultChecked={true} onChange={() => {setFilter({
-                                ...filter,
-                                delis: !filter.delis
+                <div id="checkboxes">
+                    <label>
+                        <input type="checkbox" defaultChecked={true} onChange={() => {setFilter({
+                                    ...filter,
+                                    delis: !filter.delis
+                                    }
+                               )}}/>
+                        Dostawy
+                    </label>
+                    <label>
+                        <input type="checkbox" defaultChecked={true} onChange={() => {setFilter({
+                                    ...filter,
+                                    tables: !filter.tables
                                 }
-                           )}}/>
-                    Dostawy
-                </label>
-                <label>
-                    <input type="checkbox" defaultChecked={true} onChange={() => {setFilter({
-                                ...filter,
-                                tables: !filter.tables
-                            }
-                        )}}/>
-                    W lokalu
-                </label>
+                            )}}/>
+                        W lokalu
+                    </label>
+                </div>
                 <input type="date" onChange={handleDateChange} defaultValue={null}/>
                 <input type="text" onChange={handleSearchTermChange} placeholder={'Filtruj wg telefonu/stolika'}/>
+                <input type="number" onChange={handleUserChange} min={0} placeholder={'ID Pracownika'}/>
+                <input type="number" onChange={handleDriverChange} min={0} placeholder={'ID dostawcy'}/>
                 <select defaultValue="" onChange={handleMethodChange} placeholder={'Metoda płatności'}>
                     <option value="">Wszystko</option>
                     <option value="cash">Gotówka</option>
                     <option value="card">Karta</option>
                     <option value="online">Zapłacono on-line</option>
                 </select>
-                <input type="number" onChange={handleUserChange} min={0} placeholder={'ID Pracownika'}/>
-                <input type="number" onChange={handleDriverChange} min={0} placeholder={'ID dostawcy'}/>
-                <button onClick={handleReset} value={''}>Reset filters</button>
+                <button onClick={handleReset} value={''}>RESET</button>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Rodzaj</th>
-                        <th>Telefon/Stolik</th>
-                        <th>Data</th>
-                        <th>Godzina przyjecia</th>
-                        <th>Godzina wydania</th>
-                        <th>Kwota</th>
-                        <th>Metoda</th>
-                        <th>Pracownik</th>
-                        <th>Dostawca</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {sales && sales.map(renderRow)}
-                </tbody>
-            </table>
-            <h3>Total: {total}</h3>
+            <div id='tableDiv' style={{overflowY: 'scroll'}}>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Rodzaj</th>
+                            <th>Telefon/Stolik</th>
+                            <th>Data</th>
+                            <th>Godzina przyjecia</th>
+                            <th>Godzina wydania</th>
+                            <th>Kwota</th>
+                            <th>Metoda</th>
+                            <th>Pracownik</th>
+                            <th>Dostawca</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {sales && sales.map(renderRow)}
+                    </tbody>
+                </table>
+            </div>
+            <h3>Razem: {total}$</h3>
         </div>
     )
     else return <AccessDenied/>

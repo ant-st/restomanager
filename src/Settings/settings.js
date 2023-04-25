@@ -76,7 +76,7 @@ export const Settings = () => {
 
     const handleRestart = () => {
         // eslint-disable-next-line no-restricted-globals
-        fetch('http://localhost:4000/restart').then(location.reload());
+        fetch('http://localhost:4000/restart').then(response => {location.reload(); return response});
     }
 
     if (admin) return (

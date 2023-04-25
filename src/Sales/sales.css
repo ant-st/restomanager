@@ -1,0 +1,61 @@
+#tableDiv {
+    max-height: 500px;
+    overflow: scroll;
+    border: 2px solid #537797;
+    border-radius: 10px;
+    width: 90%;
+    margin: 10px auto;
+}
+
+#salesTable table {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#filters {
+    width: 90%;
+    display: inline-flex;
+    margin: 10px auto;
+    background-color: #537797;
+    border: 2px solid #96894B;
+    border-radius: 10px;
+    padding: 10px;
+    justify-content: space-between;
+    color: #E3CC66;
+}
+
+#filters label input {
+    margin: 10px;
+}
+
+#filters input {
+    color: #E3CC66;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    text-align: center;
+    border-bottom: 1px solid #96894B;
+    background: none;
+    margin: 5px auto;
+    justify-content: center;
+}
+
+#filters select {
+    color: #E3CC66;
+    font-size: 12px;
+    outline: none;
+    border: none;
+    background: none;
+    margin: 5px auto;
+    max-height: 50px;
+}
+
+#filters button {
+    padding: 10px 20px;
+}
+
+#checkboxes {
+    display: flex;
+    flex-direction: column;
+}

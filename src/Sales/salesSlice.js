@@ -77,7 +77,6 @@ export const {
     setSalesFilter
 } = salesSlice.actions;
 
-export const selectSales = (state) => {return state.sales.sales};
 
 export const selectFilteredSales = (state) => {
     return state.sales.sales.filter(element => {
