@@ -27,7 +27,7 @@ export const Root = () => {
     return (
         <div className="App">
             <header>
-                <Link to="/"><h1><span>Resto</span> Manager</h1></Link>
+                <Link to="/"><h1><span>Yes,</span> Chef!</h1></Link>
                     {loggedUser.name ?
                         (
                             <div id="loggingScreen">

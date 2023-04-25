@@ -17,22 +17,31 @@ export const Delivery = () => {
     }
 
     const renderDelis = (deli) => {
-        let status;
-        if (deli.isChecked) status = 'Zaznaczone';
-        else if (deli.isReady) status = 'Gotowe do drogi!';
-        else if (deli.isSent) status = 'Wysłane do kuchni';
+        let status, style = undefined;
+        if (deli.isChecked) {
+            status = 'Zaznaczone';
+            style = 'checked';
+        }
+        else if (deli.isReady) {
+            status = 'Gotowe do drogi!';
+            style = 'ready'
+        }
+        else if (deli.isSent) {
+            status = 'Wysłane do kuchni';
+            style = 'sent'
+        }
         else status = 'Przyjęte';
 
         let orderTime = deli.orderTime;
 
         return (
-            <div className = "deli" key={deli.street}>
+            <div className ={"deli " + style} key={deli.street}>
                 <h4>{deli.street}, {deli.city}</h4>
                 <p>{deli.order.length} pozycji: {deli.total}$</p>
                 <p>{deli.deliNote}</p>
                 <p>Status: {status}</p>
                 <p>{orderTime}</p>
-                <button onClick = {() => dispatch(toggleChecked(deli.street))}>Check</button>
+                <button onClick = {() => dispatch(toggleChecked(deli.street))}>Zaznacz</button>
             </div>
         )
     }
@@ -40,16 +49,18 @@ export const Delivery = () => {
     if (active) return (
         <div id="delivery">
                 <div id="delicreator">
-                    <Link to='/delivery/new'><button>New delivery</button></Link>
-                    <button onClick = {() => dispatch(sendToKitchen())}>Send to kitchen</button>
-                    <input type="number" onChange={handleDriverChange} min={1}/>
-                    <button disabled={!driver} onClick = {() => dispatch(sendDriver(driver))}>Send Driver</button>
-                    <button disabled={!manager} onClick = {() => dispatch(deleteOrder())}>Delete</button>
-
+                    <Link to='/delivery/new'><button>Nowe zamówienie</button></Link>
+                    <section>
+                        <button onClick = {() => dispatch(sendToKitchen())}>Wyślij do kuchni</button>
+                        <button disabled={!manager} onClick = {() => dispatch(deleteOrder())}>Usuń zamówienie</button>
+                    </section>
+                    <section>
+                        <input type="number" onChange={handleDriverChange} min={1} placeholder="Numer kierowcy"/>
+                        <button disabled={!driver} onClick = {() => dispatch(sendDriver(driver))}>Wyślij kierowcę</button>
+                    </section>
                 </div>
                 <div id="deliList">
                     {delis.map(renderDelis)}
-
                 </div>
         </div>
     )

@@ -137,7 +137,7 @@ export const TableScreen = () => {
             </section>
             <section id="total">
                 <h3>Razem: {currentSum}$</h3>
-                <div id="buttons">
+                <div id="submitButtons">
                     <section>
                         <button disabled={!manager} onClick={handleDeleteOrder}>Anuluj</button>
                         <button  disabled={!currentSum} onClick={handleSubmitOrder}>Zatwierdź</button>

@@ -111,27 +111,27 @@
     align-items: center;
 }
 
-#buttons {
+#submitButtons {
     width: 60%;
     height: 100%;
 }
 
-#buttons section {
+#submitButtons section {
     height: 50%;
     padding: 1% 0;
     margin: 0;
     box-sizing: border-box;
 }
-#buttons button {
+#submitButtons button {
     width: 50%;
     height: 100%;
 }
 
-#buttons button:disabled {
+#submitButtons button:disabled {
     border-color: darkgrey;
 }
 
-#buttons select {
+#submitButtons select {
     width: 50%;
     height: 100%;
     border: 2px solid #96894B;
@@ -142,7 +142,7 @@
     transition: color 0.2s linear, border 0.2s linear;
 }
 
-#buttons select:disabled {
+#submitButtons select:disabled {
     border-color: darkgrey;
     color: darkgrey;
 }

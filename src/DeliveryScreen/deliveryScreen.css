@@ -82,6 +82,7 @@
 
 #submit button {
     font-size: 20px;
+    padding: 10px;
 }
 
 #submit button:disabled {
