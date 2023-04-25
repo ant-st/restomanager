@@ -1,16 +1,19 @@
 #menuDetails {
     height: 70%;
     overflow: scroll;
+
 }
 
 #menuList {
-    background-color: #f0c0c0;
+    background-color: #537797;
+    border: 2px solid #96894B;
     border-radius: 10px;
     margin: 10px auto;
     width: 80%;
 
     display: flex;
     flex-direction: column;
+    box-shadow: 8px 8px 24px 0 rgba(66, 68, 90, 1);
 
 }
 
@@ -40,12 +43,23 @@
 }
 
 #menuPosCreator input {
-    width: 30%;
+    width: 25%;
     font-size: 16px;
     outline: none;
     border: none;
     text-align: center;
-    border-bottom: 1px solid black;
-    background-color: #f0c0c0;
+    border-bottom: 1px solid #96894B;
+    color: #E3CC66;
+    background: none;
     height: 50px;
+}
+
+#menuDetails button {
+    font-size: 18px;
+    padding: 10px;
+    color: #E3CC66;
+}
+
+.nameAndDesc {
+    width: 50%;
 }

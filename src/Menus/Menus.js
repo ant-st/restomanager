@@ -22,10 +22,12 @@ export const Menus = () => {
 
     const renderMenus = (menu) => {
         return (
-             <div className="menu" key={`menu ${menu.id}`}>
-                 <NavLink to={String(menu.id)}><p>{menu.name}</p></NavLink>
-                <button onClick = {() => dispatch(deleteMenu(menu.name))}>X</button>
-            </div>
+            <NavLink to={String(menu.id)} className="menu">
+                <div key={`menu ${menu.id}`}>
+                    <p>{menu.name}</p>
+                    <button onClick = {() => dispatch(deleteMenu(menu.name))}>Usuń</button>
+                </div>
+            </NavLink>
         )
     }
 
@@ -39,10 +41,9 @@ export const Menus = () => {
 
     if (admin) return (
         <section id="menus">
-            <div>
-                <p>New menu:</p>
-                <input defaultValue={'name'} onChange={handleNewMenu}></input>
-                <button onClick={submitNewMenu}>ADD</button>
+            <div id="menuCreator">
+                <input placeholder="Nowe menu" onChange={handleNewMenu}></input>
+                <button onClick={submitNewMenu}>DODAJ</button>
             </div>
             <div id="menusGallery">
                 {

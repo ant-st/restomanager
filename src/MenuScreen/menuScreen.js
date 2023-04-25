@@ -11,7 +11,6 @@ export const MenuScreen = () => {
     let menus = useSelector(selectMenus);
 
     const [menuItems, setMenuItems] = useState([]);
-    const [menuName, setMenuName] = useState('');
     const [newName, setNewName] = useState('');
     const [newDesc, setNewDesc] = useState('');
     const [newPrice, setNewPrice] = useState(0);
@@ -20,7 +19,6 @@ export const MenuScreen = () => {
             for (let i=0;i<menus.length;i++) {
                 if (
                     menus[i].id === Number(id)) {
-                    setMenuName(menus[i].name);
                     setMenuItems(menus[i].positions);
                 }
             }
@@ -29,15 +27,15 @@ export const MenuScreen = () => {
     const renderMenuItems = (item) => {
         return (
             <div className = "menuPosition" key={item.name}>
-                <div>
+                <div className="nameAndDesc">
                     <h3>{item.name}</h3>
                     <p>{item.description}</p>
                 </div>
-                <h4>{item.price}</h4>
+                <h4>{item.price}$</h4>
                 <div>
                     <button onClick = {() => {
                         dispatch(deletePosition({name: item.name, menuId: id}))
-                    }}>Delete</button>
+                    }}>Usuń</button>
 
                 </div>
             </div>
@@ -77,7 +75,6 @@ export const MenuScreen = () => {
 
     return (
         <div>
-            <h3>I am a menu ID:{id} named {menuName}!</h3>
             <div id="menuList">
                 <div id="menuPosCreator">
                     <input defaultValue="Nazwa" onChange={handleNameChange}/>
