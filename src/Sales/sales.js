@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchSales, selectFilteredSales, setSalesFilter} from "./salesSlice";
 import {selectLoggedUser} from "../users/usersSlice";
 import {AccessDenied} from "../users/AccessDenied";
+import './sales.css'
 
 export const Sales = () => {
     const dispatch = useDispatch();

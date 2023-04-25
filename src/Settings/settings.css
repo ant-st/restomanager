@@ -6,3 +6,75 @@
     display: inline;
 }
 
+#tableEditor, #usersEditor {
+    box-sizing: border-box;
+    margin: 10px auto;
+    width: 70%;
+    border: 2px solid #96894B;
+    border-radius: 20px;
+}
+
+#settings h2 {
+    background-color: #537797;
+    margin: 0 auto;
+    padding: 15px;
+    border-radius: 19px;
+}
+
+#tableAdder {
+    background-color: #537797;
+    height: 40px;
+    border-radius: 20px;
+}
+
+#tableAdder input {
+    width: 70%;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    text-align: center;
+    border-bottom: 1px solid #96894B;
+    color: #E3CC66;
+    background: none;
+    margin: 10px;
+}
+
+#settings li p {
+    width: 80%;
+    margin: 10px;
+}
+
+#settings li div {
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+#settings button {
+    width: 20%;
+    background-color: #537797;
+    margin: 5px;
+}
+
+#usersEditor table {
+    box-sizing: border-box;
+    padding: 10px;
+    width: 100%;
+}
+
+#usersEditor input {
+    font-size: 16px;
+    outline: none;
+    border: none;
+    text-align: center;
+    border-bottom: 1px solid #96894B;
+    color: black;
+    background: none;
+    margin: 5px auto;
+    justify-content: center;
+}
+
+#usersEditor tfoot button {
+    width: 90%;
+}
+

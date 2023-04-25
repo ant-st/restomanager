@@ -1,7 +1,7 @@
 export const AccessDenied = () => {
     return (
         <div>
-            <p>Access denied! You don't have sufficient rights to be here!</p>
+            <p>Odmowa dostępu! Nie masz uprawnień, by tu być! Zaloguj się lub skontaktuj się z administratorem.</p>
         </div>
     )
 }

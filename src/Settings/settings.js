@@ -24,7 +24,12 @@ export const Settings = () => {
 
     const renderTables = (table) => {
         return (
-                <li key={'table ' + table.name}>{table.name} <button onClick = {() => dispatch(deleteTable(table.id))}>X</button></li>
+            <li key={'table ' + table.name}>
+                <div>
+                    <p>{table.name}</p>
+                    <button onClick = {() => dispatch(deleteTable(table.id))}>USUŃ</button>
+                </div>
+            </li>
         )
     }
     const handleNameChange = ({target}) => {
@@ -82,8 +87,10 @@ export const Settings = () => {
                 <ol id="tablesList">
                     {tables.map(renderTables)}
                 </ol>
-                <input onChange={handleNameChange}/>
-                <button onClick={submitNameChange}>Add!</button>
+                <div id="tableAdder">
+                    <input onChange={handleNameChange} placeholder="Nowy stolik"/>
+                    <button onClick={submitNameChange}>DODAJ</button>
+                </div>
             </section>
             <section id="usersEditor">
                 <h2>Edycja użytkowników:</h2>
@@ -105,8 +112,8 @@ export const Settings = () => {
                     <tfoot>
                         <tr>
                             <td></td>
-                            <td><input defaultValue="Nowy user" onChange={handleUsernameChange}/></td>
-                            <td><input type="password" defaultValue="Hasło" onChange={handlePassChange}/></td>
+                            <td><input placeholder="Nowy użytkownik" onChange={handleUsernameChange}/></td>
+                            <td><input type="password" placeholder="Hasło" onChange={handlePassChange}/></td>
                             <td></td>
                             <td><input type="checkbox" onChange={handleManagerChange}/></td>
                             <td><input type="checkbox" defaultChecked={true} onChange={handleActiveChange}/></td>
