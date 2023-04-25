@@ -94,8 +94,7 @@ export const TableScreen = () => {
                     <p>{menu.description}</p>
                 </div>
                 <div className="priceAndButton">
-                    <h3>{menu.price}$</h3>
-                    <button onClick={() => handleAddingToOrder({name: menu.name, price: menu.price})}>+</button>
+                    <button onClick={() => handleAddingToOrder({name: menu.name, price: menu.price})}>{menu.price}$</button>
                 </div>
             </div>
         )
@@ -106,7 +105,7 @@ export const TableScreen = () => {
             <div className="menuPosition" key={'order ' + menu.name}>
                 <div className="positionDescription">
                     <h3>{menu.name}</h3>
-                    <textarea onChange={({target}) => {menu.note = target.value}} defaultValue={menu.note ? menu.note : 'Add note'}>
+                    <textarea onChange={({target}) => {menu.note = target.value}} defaultValue={menu.note ? menu.note : 'Notatka'}>
                     </textarea>
                 </div>
                 <div className="priceAndButton">
@@ -124,8 +123,8 @@ export const TableScreen = () => {
     if (active) return (
         <div id="tableScreen">
             <section id="tableName">
-                <p>Stół - ID: {id}</p>
-                <Link to={'/tables'}>Go back</Link>
+                <h3>Stół nr {id}</h3>
+                <Link to={'/tables'}><img src={require('../13964.png')} alt="Back button"/></Link>
             </section>
             <section id="menuButtons">
                 {menus.map(renderMenuButtons)}
@@ -137,16 +136,22 @@ export const TableScreen = () => {
                 {currentOrder && currentOrder.map(renderOrder)}
             </section>
             <section id="total">
-                <h4>Total: {currentSum}$</h4>
-                <select defaultValue="" onChange={handleMethodChange}>
-                    <option value="">Metoda płatności:</option>
-                    <option value="cash">Gotówka</option>
-                    <option value="card">Karta</option>
-                    <option value="online">Zapłacono on-line</option>
-                </select>
-                <button disabled={!manager} onClick={handleDeleteOrder}>Cancel order</button>
-                <button onClick={handleSubmitOrder}>Submit order</button>
-                <button onClick={handleFinalizeOrder}>Finalize order</button>
+                <h3>Razem: {currentSum}$</h3>
+                <div id="buttons">
+                    <section>
+                        <button disabled={!manager} onClick={handleDeleteOrder}>Anuluj</button>
+                        <button  disabled={!currentSum} onClick={handleSubmitOrder}>Zatwierdź</button>
+                    </section>
+                    <section>
+                        <select disabled={!currentSum} defaultValue="" onChange={handleMethodChange}>
+                            <option value="">Metoda płatności:</option>
+                            <option value="cash">Gotówka</option>
+                            <option value="card">Karta</option>
+                            <option value="online">Zapłacono on-line</option>
+                        </select>
+                        <button disabled={!currentPay} onClick={handleFinalizeOrder}>Rozlicz i zakończ</button>
+                    </section>
+                </div>
             </section>
         </div>
     )

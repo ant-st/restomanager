@@ -1,16 +1,34 @@
 #tableScreen {
     width: 90%;
     height: 80%;
-    background-color: lightcoral;
+    background-color: #537797;
     margin: 20px auto;
     border-radius: 10px;
     display: grid;
     grid-template: 10% 80% 10% / 1fr 1fr;
     grid-template-areas: 'menuSelector tableName' 'menu order' 'menu total' ;
+    border: 3px solid #96894B;
 }
 
 #tableName {
     grid-area: tableName;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#tableName h3, #total h3 {
+    margin: 0 20px;
+}
+
+#tableName a {
+    height: 50%;
+    width: 15%;
+}
+
+#tableName img {
+    width: 30px;
+    height: 30px;
 }
 
 #menuButtons {
@@ -18,17 +36,18 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 #menuButtons button {
-    height: 70%;
+    height: 40%;
     width: 30%;
     border-radius: 10px;
 }
 
 #menuListing {
     grid-area: menu;
-    background-color: #f0c0c0;
+    background-color: #BAC5D2;
     border-radius: 10px;
     margin: 2px;
 
@@ -39,7 +58,7 @@
 
 #order {
     grid-area: order;
-    background-color: #f0c0c0;
+    background-color: #BAC5D2;
     border-radius: 10px;
     margin: 2px;
 
@@ -51,6 +70,7 @@
 .menuPosition {
     box-sizing: border-box;
     width: 100%;
+    height: 110px;
     border-bottom: 1px solid black;
     display: inline-flex;
     justify-content: space-between;
@@ -62,3 +82,67 @@
     text-align: left;
 }
 
+.priceAndButton {
+    width: 20%;
+}
+
+.priceAndButton h3 {
+    text-align: center;
+    font-size: 25px;
+    margin: 5px 0;
+}
+
+.menuPosition button {
+    width: 100%;
+    color: black;
+    font-size: 25px;
+}
+
+#order textarea {
+    background: none;
+    border: 2px solid #96894B;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+#total {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#buttons {
+    width: 60%;
+    height: 100%;
+}
+
+#buttons section {
+    height: 50%;
+    padding: 1% 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+#buttons button {
+    width: 50%;
+    height: 100%;
+}
+
+#buttons button:disabled {
+    border-color: darkgrey;
+}
+
+#buttons select {
+    width: 50%;
+    height: 100%;
+    border: 2px solid #96894B;
+    border-radius: 5px;
+    background: none;
+    color: #E3CC66;
+    text-align: center;
+    transition: color 0.2s linear, border 0.2s linear;
+}
+
+#buttons select:disabled {
+    border-color: darkgrey;
+    color: darkgrey;
+}

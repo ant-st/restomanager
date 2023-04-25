@@ -63,7 +63,7 @@ header input:focus {
     border-color: #E3CC66;
 }
 
-header button {
+button {
     border: solid 2px #96894B;
     border-radius: 10px;
     background: none;
@@ -71,7 +71,7 @@ header button {
     transition: border 0.3s linear;
 }
 
-header button:hover {
+button:hover {
     border-color: #E3CC66;
 }
 
