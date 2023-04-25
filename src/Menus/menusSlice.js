@@ -7,6 +7,7 @@ const swapElements = (array, index1, index2) => {
 
 export const fetchMenus = createAsyncThunk( 'menus/fetchMenus', () => {
     let positions;
+    console.log('fetching menus...');
     fetch('http://localhost:4000/api/pos')
         .then(response => {
             if (!response.ok) {
@@ -134,62 +135,62 @@ const menusSlice = createSlice({
     extraReducers:  (builder) => {
         builder
             .addCase(fetchMenus.fulfilled, (state, action) => {
-                return (state = {
+                return {
                     ...state,
                     status: "ok",
                     menus: action.payload,
-                });
+                };
             })
             .addCase(fetchMenus.rejected, (state) => {
-                return (state = {
+                return {
                     ...state,
                     status: "failed",
-                });
+                };
             })
             .addCase(fetchMenus.pending, (state) => {
-                return (state = {
+                return {
                     ...state,
                     status: "loading",
-                });
+                };
             })
 
             .addCase(addMenu.pending, (state) => {
-                return (state = {
+                return {
                     ...state,
                     status: "loading",
-                });
+                };
             })
             .addCase(addMenu.fulfilled, (state, action) => {
                 let newMenu = {
                     ...action.payload.menu,
                     positions: []
                 }
-                return (state = {
+                return {
                     ...state,
                     menus: [...state.menus, newMenu],
                     status: "ok",
-                })
+                }
             })
 
             .addCase(deleteMenu.pending, (state) => {
-                    return (state = {
+                    return {
                         ...state,
                         status: "loading",
-                    });
+                    };
                 })
             .addCase(deleteMenu.fulfilled, (state, action) => {
-                return (state = {
+                return {
                     ...state,
                     menus: state.menus.filter(menu => menu.name !== action.payload),
                     status: "ok",
-                })
+                }
         })
 
             .addCase(addPositionToMenu.pending, (state) => {
-            return (state = {
+            return {
                 ...state,
                 status: "loading",
-            });
+            };
         })
             .addCase(addPositionToMenu.fulfilled, (state, action) => {
                 let newItem = action.payload.menuItem;
@@ -203,10 +204,10 @@ const menusSlice = createSlice({
             })
 
             .addCase(deletePosition.pending, (state) => {
-            return (state = {
+            return {
                 ...state,
                 status: "loading",
-            });
+            };
         })
             .addCase(deletePosition.fulfilled, (state, action) => {
                     state.status = 'ok';
@@ -229,9 +230,7 @@ export const selectStatus = (state) => {
     return state.menus.status;
 }
 
-export const {
-    swapPosition
-} = menusSlice.actions;
+// export const {swapPosition} = menusSlice.actions;
 
 export default menusSlice.reducer;
 

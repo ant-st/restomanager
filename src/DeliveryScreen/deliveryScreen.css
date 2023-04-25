@@ -1,12 +1,13 @@
 #deliScreen {
     width: 90%;
     height: 80%;
-    background-color: lightcoral;
+    background-color: #537797;
     margin: 20px auto;
     border-radius: 10px;
     display: grid;
     grid-template: 10% 80% 10% / 1fr 1fr 1fr;
-    grid-template-areas: 'menuSelector tableName buttons' 'menu order add' 'menu total add' ;
+    grid-template-areas: 'menuSelector tableName buttons' 'menu order add' 'menu total submit' ;
+    border: 3px solid #96894B;
 }
 
 #deliName {
@@ -30,18 +31,62 @@
 #total {
     grid-area: total;
 }
+#total h4 {
+    margin: 0 auto;
+}
 
 #address {
     display: flex;
     flex-direction: column;
 }
 
+
 #address textarea {
+    background-color: #BAC5D2;
+    border: 2px solid #96894B;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+#address select {
+    border: 2px solid #96894B;
+    border-radius: 5px;
+    background: none;
+    color: #E3CC66;
+    text-align: center;
     margin: 10px;
 }
 
 #buttons {
+    display: inline-flex;
     grid-area: buttons;
+    width: 100%;
+    justify-content: right;
+    align-items: center;
+}
+
+
+#buttons img {
+    height: 30px;
+    width: 30px;
+    margin: 0 15px;
+}
+
+#submit {
+    grid-area: submit;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#submit button {
+    font-size: 20px;
+}
+
+#submit button:disabled {
+    color: darkgrey;
+    border-color: darkgrey;
 }
 
 .menuPosition {

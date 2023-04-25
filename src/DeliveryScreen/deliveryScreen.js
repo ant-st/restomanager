@@ -87,8 +87,7 @@ export const DeliveryScreen = () => {
                     <p>{menu.description}</p>
                 </div>
                 <div className="priceAndButton">
-                    <h3>{menu.price}$</h3>
-                    <button onClick={() => handleAddingToOrder({name: menu.name, price: menu.price})}>+</button>
+                    <button onClick={() => handleAddingToOrder({name: menu.name, price: menu.price})}>{menu.price}$</button>
                 </div>
             </div>
         )
@@ -113,7 +112,7 @@ export const DeliveryScreen = () => {
     if (active) return (
         <div id="deliScreen">
             <section id="deliName">
-                <p>Nowa dostawa</p>
+                <h3>Nowa dostawa</h3>
             </section>
             <section id="menuButtons">
                 {menus.map(renderMenuButtons)}
@@ -125,22 +124,24 @@ export const DeliveryScreen = () => {
                 {currentOrder && currentOrder.map(renderOrder)}
             </section>
             <section id="total">
-                <h4>Total: {currentSum}$</h4>
+                <h4>Razem: {currentSum}$</h4>
             </section>
             <section id="buttons">
-                <button onClick={handleSubmitOrder} >Save order</button>
-                <Link to={'/delivery'}>Go back</Link>
+                <Link to={'/delivery'}><img src={require('../13964.png')} alt = "return button"/></Link>
             </section>
             <section id="address">
-                <textarea defaultValue="Street" onChange={({target}) => setCurrentAdd(target.value)}></textarea>
+                <textarea defaultValue="Ulica" onChange={({target}) => setCurrentAdd(target.value)}></textarea>
                 <textarea defaultValue="Wrocław" onChange={({target}) => setCurrentCity(target.value)}></textarea>
-                <textarea defaultValue="Phone" onChange={({target}) => setCurrentPhone(target.value)}></textarea>
-                <textarea defaultValue="deliNote" onChange={({target}) => setCurrentNote(target.value)}></textarea>
+                <textarea defaultValue="Telefon" onChange={({target}) => setCurrentPhone(target.value)}></textarea>
+                <textarea defaultValue="Notatka dla kierowcy" onChange={({target}) => setCurrentNote(target.value)}></textarea>
                 <select defaultValue="cash" onChange={handleMethodChange}>
                     <option value="cash">Gotówka</option>
                     <option value="card">Karta</option>
                     <option value="online">Zapłacono on-line</option>
                 </select>
+            </section>
+            <section id="submit">
+                <button disabled={!(currentAdd && currentCity && currentPhone && currentSum)} onClick={handleSubmitOrder} >Zatwierdź zamówienie</button>
             </section>
         </div>
     )
