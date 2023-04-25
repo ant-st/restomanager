@@ -26,7 +26,7 @@ export const Kitchen = () => {
                     <ol>
                     {table.order.map(renderOrder)}
                     </ol>
-                    <button onClick={() => dispatch(toggleIsReady(table.id))}>Check!</button>
+                    <button onClick={() => dispatch(toggleIsReady(table.id))}>Gotowe!</button>
                 </div>
             )
         }
@@ -39,7 +39,7 @@ export const Kitchen = () => {
                     <ol>
                         {deli.order.map(renderOrder)}
                     </ol>
-                    <button onClick={() => dispatch(toggleReady(deli.street))}>Check!</button>
+                    <button onClick={() => dispatch(toggleReady(deli.street))}>Gotowe!</button>
                 </div>
             )
         }
