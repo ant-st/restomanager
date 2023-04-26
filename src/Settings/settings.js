@@ -1,10 +1,11 @@
 import {useDispatch, useSelector} from "react-redux";
 import {addTable, deleteTable, selectTables} from "../Tables/tablesSlice";
-import {useState} from "react";
+import {useRef, useState} from "react";
 import {addUser, selectLoggedUser, selectUsers, toggleActiveUser} from "../users/usersSlice";
 import {AccessDenied} from "../users/AccessDenied";
 import './settings.css'
 import {GMapWrapper} from "../GoogleMap/GMapWrapper";
+import {setCenter} from "../GoogleMap/mapSlice";
 
 export const Settings = () => {
     let tables = useSelector(selectTables);
@@ -14,7 +15,6 @@ export const Settings = () => {
     const dispatch = useDispatch();
 
     const [newName, setNewName] = useState('');
-
     const [newUser, setNewUser] = useState({
         name: '',
         password: '',
@@ -22,6 +22,7 @@ export const Settings = () => {
         manager: false,
         active: true
     });
+    const newAddress = useRef('');
 
     const renderTables = (table) => {
         return (
@@ -54,23 +55,18 @@ export const Settings = () => {
             </tr>
         )
     }
-
     const handleUsernameChange = ({target}) => {
         setNewUser({...newUser, name: target.value});
     }
-
     const handlePassChange = ({target}) => {
         setNewUser({...newUser, password: target.value});
     }
-
-
     const handleManagerChange = () => {
         setNewUser({...newUser, manager: !newUser.manager});
     }
     const handleActiveChange = () => {
         setNewUser({...newUser, active: !newUser.active});
     }
-
     const submitNewUser = () => {
         dispatch(addUser(newUser));
     }
@@ -84,6 +80,10 @@ export const Settings = () => {
         <div id="settings">
             <p>Tylko w wersji próbnej - <button onClick={handleRestart}>RESTART</button></p>
             <section id="addEditor">
+                <input placeholder="Nowy adres" ref={newAddress}/>
+                <button onClick={()=>{dispatch(setCenter(newAddress.current.value))}}>ZAPISZ</button>
+            </section>
+            <section id="mapContainer">
                 <GMapWrapper/>
             </section>
             <section id="tableEditor">
