@@ -4,6 +4,7 @@ import menusSliceReducer from "./Menus/menusSlice";
 import deliSliceReducer from "./Delivery/deliSlice";
 import salesSliceReducer from "./Sales/salesSlice";
 import usersSliceReducer from "./users/usersSlice";
+import mapSliceReducer from "./GoogleMap/mapSlice";
 
 export default configureStore({
     reducer: {
@@ -11,6 +12,7 @@ export default configureStore({
         menus: menusSliceReducer,
         deli: deliSliceReducer,
         sales: salesSliceReducer,
-        users: usersSliceReducer
+        users: usersSliceReducer,
+        map: mapSliceReducer
     },
 });

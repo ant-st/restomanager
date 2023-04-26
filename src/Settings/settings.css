@@ -78,3 +78,14 @@
     width: 90%;
 }
 
+#addEditor {
+    width: 80%;
+    height: 200px;
+    margin: 10px auto;
+}
+
+#settings #map {
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+}

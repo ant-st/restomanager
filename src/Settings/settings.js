@@ -4,6 +4,7 @@ import {useState} from "react";
 import {addUser, selectLoggedUser, selectUsers, toggleActiveUser} from "../users/usersSlice";
 import {AccessDenied} from "../users/AccessDenied";
 import './settings.css'
+import {GMapWrapper} from "../GoogleMap/GMapWrapper";
 
 export const Settings = () => {
     let tables = useSelector(selectTables);
@@ -82,6 +83,9 @@ export const Settings = () => {
     if (admin) return (
         <div id="settings">
             <p>Tylko w wersji próbnej - <button onClick={handleRestart}>RESTART</button></p>
+            <section id="addEditor">
+                <GMapWrapper/>
+            </section>
             <section id="tableEditor">
                 <h2>Edycja stolików:</h2>
                 <ol id="tablesList">
