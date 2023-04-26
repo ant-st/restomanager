@@ -104,3 +104,10 @@
     text-align: left;
 }
 
+#map{
+    box-sizing: border-box;
+    margin: 5%;
+    height: 90%;
+    width: 90%;
+}
+

@@ -8,6 +8,7 @@ import {addOrder} from "../Delivery/deliSlice";
 import './deliveryScreen.css'
 import {selectLoggedUser} from "../users/usersSlice";
 import {AccessDenied} from "../users/AccessDenied";
+import {GMapWrapper} from "../GoogleMap/GMapWrapper";
 
 export const DeliveryScreen = () => {
     const dispatch = useDispatch();
@@ -139,6 +140,7 @@ export const DeliveryScreen = () => {
                     <option value="card">Karta</option>
                     <option value="online">Zapłacono on-line</option>
                 </select>
+                <GMapWrapper/>
             </section>
             <section id="submit">
                 <button disabled={!(currentAdd && currentCity && currentPhone && currentSum)} onClick={handleSubmitOrder} >Zatwierdź zamówienie</button>
