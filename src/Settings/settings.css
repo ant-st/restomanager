@@ -1,3 +1,8 @@
+#settings {
+    height: 80%;
+    overflow: scroll;
+}
+
 .passwordCell span {
     display: none;
 }

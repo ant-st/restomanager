@@ -18,6 +18,7 @@ import {fetchMenus} from "../Menus/menusSlice";
 import {useDispatch} from "react-redux";
 import {fetchTables} from "../Tables/tablesSlice";
 import {fetchUsers} from "../users/usersSlice";
+import {fetchCenter} from "../GoogleMap/mapSlice";
 
 
 const router = createBrowserRouter(
@@ -48,6 +49,7 @@ function App() {
         dispatch(fetchMenus());
         dispatch(fetchTables());
         dispatch(fetchUsers());
+        dispatch(fetchCenter());
     },[dispatch]);
 
   return (

@@ -35,6 +35,11 @@ app.get('/restart',() => {
                 'driver INTEGER)');
 
  */
+            db.run('DROP TABLE IF EXISTS Map');
+            db.run('CREATE TABLE Map (id INTEGER NOT NULL PRIMARY KEY,' +
+                'lat FLOAT NOT NULL,' +
+                'lng FLOAT NOT NULL)');
+            db.run(`INSERT INTO MAP (lat, lng) VALUES (51.096, 17.023)`);
 
             db.run('DROP TABLE IF EXISTS Users');
             db.run('CREATE TABLE Users (id INTEGER NOT NULL PRIMARY KEY,' +
