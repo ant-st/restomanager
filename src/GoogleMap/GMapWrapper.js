@@ -3,11 +3,12 @@ import {MapComponent} from "./MapComponent";
 import {apiKey} from "./apiKey";
 import {useSelector} from "react-redux";
 import {selectCenter} from "./mapSlice";
+import {memo} from "react";
 
-export const GMapWrapper = () => {
+export const GMapWrapper = memo(function GMapWrapper({newMarker}) {
 
     const center = useSelector(selectCenter);
-    const zoom = 13;
+    const zoom = 11;
 
     const render = (status) => {
         switch (status) {
@@ -16,9 +17,9 @@ export const GMapWrapper = () => {
             case Status.FAILURE:
                 return <h3>Error!</h3>;
             case Status.SUCCESS:
-                return <MapComponent center={center} zoom={zoom}/>;
+                return <MapComponent center={center} zoom={zoom} marker = {newMarker}/>;
         }
     };
 
     return <Wrapper apiKey={apiKey} render={render} />;
-}
+});

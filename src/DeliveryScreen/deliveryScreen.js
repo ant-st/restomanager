@@ -1,7 +1,7 @@
 import {useNavigate} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {selectMenus} from "../Menus/menusSlice";
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {Link} from "react-router-dom";
 import {addOrder} from "../Delivery/deliSlice";
 
@@ -9,6 +9,7 @@ import './deliveryScreen.css'
 import {selectLoggedUser} from "../users/usersSlice";
 import {AccessDenied} from "../users/AccessDenied";
 import {GMapWrapper} from "../GoogleMap/GMapWrapper";
+import {apiKey} from "../GoogleMap/apiKey";
 
 export const DeliveryScreen = () => {
     const dispatch = useDispatch();
@@ -26,6 +27,7 @@ export const DeliveryScreen = () => {
     const [currentPhone, setCurrentPhone] = useState('');
     const [currentNote, setCurrentNote] = useState('');
     const [currentMethod, setCurrentMethod] = useState('cash');
+    const [marker, setMarker] = useState('');
 
     // Calculating total sum:
     useEffect( () => {
@@ -110,6 +112,10 @@ export const DeliveryScreen = () => {
         )
     }
 
+    const newMarker = useMemo( () => marker
+        ,[marker])
+
+
     if (active) return (
         <div id="deliScreen">
             <section id="deliName">
@@ -140,7 +146,8 @@ export const DeliveryScreen = () => {
                     <option value="card">Karta</option>
                     <option value="online">Zapłacono on-line</option>
                 </select>
-                <GMapWrapper/>
+                <button onClick={()=>{setMarker(currentAdd+', '+currentCity);}}>Pokaż na mapie</button>
+                <GMapWrapper newMarker = {newMarker}/>
             </section>
             <section id="submit">
                 <button disabled={!(currentAdd && currentCity && currentPhone && currentSum)} onClick={handleSubmitOrder} >Zatwierdź zamówienie</button>
